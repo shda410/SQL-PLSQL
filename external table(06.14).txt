@@ -1,0 +1,56 @@
+
+
+external table 
+1. DBA 立加
+drop directory data_dir;
+create directory data_dir as 'c:\data\';
+select * from dba_directories;
+grant read, write on directory data_dir to hr;
+revoke read, write on directory data_dir from hr;
+
+2. hr 立加
+
+create table empxt 
+(id number,name varchar2(30),hire_date date,
+sal number, dept_id number)
+organization external
+(
+type oracle_loader
+default directory data_dir
+access parameters
+(
+records delimited by newline
+badfile 'empxt.bad'
+logfile 'empxt.log'
+fields terminated by ','
+missing field values are null
+(id,name,
+hire_date char date_format 
+date mask "yyyy-mm-dd", sal, dept_id)
+)
+location('emp1.csv')
+)
+reject limit unlimited;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

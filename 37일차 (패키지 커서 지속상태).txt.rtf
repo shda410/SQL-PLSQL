@@ -1,0 +1,395 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0\fnil\fcharset129 \'b8\'bc\'c0\'ba \'b0\'ed\'b5\'f1;}}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sl240\slmult1\lang18\f0\fs20 [\'b9\'ae\'c1\'a6] \'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3\'b8\'a6 \'c0\'d4\'b7\'c2\'b0\'aa\'c0\'b8\'b7\'ce \'b9\'de\'be\'c6\'bc\'ad \'bb\'e7\'b9\'f8, \'c0\'cc\'b8\'a7, \'ba\'ce\'bc\'ad\'c0\'cc\'b8\'a7\'c0\'bb \'c3\'e2\'b7\'c2\'c7\'cf\'b4\'c2 \'c7\'c1\'b7\'ce\'bd\'c3\'c0\'fa\'b8\'a6 \'bb\'fd\'bc\'ba\'c7\'cf\'bc\'bc\'bf\'e4.\par
+\par
+SQL> exec id_proc(100)\par
+\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : 100  \'bb\'e7\'bf\'f8 \'c0\'cc\'b8\'a7 : King  \'ba\'ce\'bc\'ad\'c0\'cc\'b8\'a7 : Executive\par
+\par
+PL/SQL procedure successfully completed.\par
+\par
+SQL> exec id_proc(200)\par
+\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : 200  \'bb\'e7\'bf\'f8 \'c0\'cc\'b8\'a7 : Whalen  \'ba\'ce\'bc\'ad\'c0\'cc\'b8\'a7 : Administration\par
+\par
+PL/SQL procedure successfully completed.\par
+\par
+SQL> exec id_proc(300)\par
+300\'bb\'e7\'bf\'f8\'c0\'ba \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6 \'be\'ca\'bd\'c0\'b4\'cf\'b4\'d9.\par
+\par
+PL/SQL procedure successfully completed.\par
+\par
+\par
+\par
+\par
+create or replace procedure id_proc(p_id in number)\par
+is\par
+    v_name          \tab employees.last_name%type;\par
+    v_dept_name\tab\tab departments.department_name%type;\par
+begin\par
+    select e.last_name, d.department_name\par
+    into v_name, v_dept_name\par
+    from employees e, departments d\par
+    where e.department_id = d.department_id\par
+    and e.employee_id = p_id; --\'be\'cf\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad\par
+    \par
+    dbms_output.put_line('\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : '||p_id||'  \'bb\'e7\'bf\'f8 \'c0\'cc\'b8\'a7 : '||v_name||'  \'ba\'ce\'bc\'ad\'c0\'cc\'b8\'a7 : '||v_dept_name);\par
+exception\par
+    when no_data_found then \par
+      dbms_output.put_line(p_id||'\'bb\'e7\'bf\'f8\'c0\'ba \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6 \'be\'ca\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+    when others then \par
+      dbms_output.put_line(sqlerrm);\par
+end id_proc;\par
+/\par
+\'c7\'c1\'b7\'ce\'bd\'c3\'c0\'fa\'b8\'a6 \'b8\'b8\'b5\'e5\'b4\'c2\'c0\'cc\'c0\'af\par
+:\'c0\'d4\'b7\'c2\'b0\'aa\'c0\'bb\'b9\'de\'be\'c6\'bc\'ad \'c3\'b3\'b8\'ae\par
+\par
+\par
+[\'b9\'ae\'c1\'a648] \'bb\'e7\'bf\'f8\'c0\'cc\'b8\'a7\'c0\'bb \'c0\'d4\'b7\'c2\'b0\'aa\'c0\'b8\'b7\'ce \'b9\'de\'be\'c6\'bc\'ad \'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3, \'c0\'cc\'b8\'a7, \'ba\'ce\'bc\'ad\'c0\'cc\'b8\'a7\'c0\'bb \'c3\'e2\'b7\'c2\'c7\'cf\'b4\'c2 \'c7\'c1\'b7\'ce\'bd\'c3\'c0\'fa\'b8\'a6 \'bb\'fd\'bc\'ba\'c7\'cf\'bc\'bc\'bf\'e4.\par
+\par
+SQL> exec name_proc('de haan')\par
+\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : 102  \'bb\'e7\'bf\'f8 \'c0\'cc\'b8\'a7 : De Haan  \'ba\'ce\'bc\'ad\'c0\'cc\'b8\'a7 : Executive\par
+\par
+PL/SQL procedure successfully completed.\par
+\par
+SQL> exec name_proc('king')\par
+\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : 156  \'bb\'e7\'bf\'f8 \'c0\'cc\'b8\'a7 : King  \'ba\'ce\'bc\'ad\'c0\'cc\'b8\'a7 : Sales\par
+\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : 100  \'bb\'e7\'bf\'f8 \'c0\'cc\'b8\'a7 : King  \'ba\'ce\'bc\'ad\'c0\'cc\'b8\'a7 : Executive\par
+\par
+PL/SQL procedure successfully completed.\par
+\par
+SQL> exec name_proc('hong')\par
+hong \'bb\'e7\'bf\'f8\'c0\'ba \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6 \'be\'ca\'bd\'c0\'b4\'cf\'b4\'d9.\par
+\par
+PL/SQL procedure successfully completed.\par
+\par
+\par
+create or replace procedure name_proc(p_name in varchar2)\par
+is\par
+  \tab type rec_type is record(id number, name varchar2(30), dept_name varchar2(30));\par
+  \tab type tab_type is table of rec_type;\par
+  \tab v_tab tab_type;\par
+begin\par
+\tab select e.employee_id, e.last_name, d.department_name\par
+\tab bulk collect into v_tab\par
+\tab from employees e, departments d\par
+\tab where e.department_id = d.department_id\par
+\tab and e.last_name = initcap(p_name);\par
+\par
+\tab if v_tab.count =0 then\par
+  \tab\tab dbms_output.put_line(p_name ||' \'bb\'e7\'bf\'f8\'c0\'ba \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6 \'be\'ca\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+\tab else\par
+ \tab\tab for i in v_tab.first..v_tab.last loop \par
+     \tab\tab dbms_output.put_line('\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : '||v_tab(i).id||'  \'bb\'e7\'bf\'f8 \'c0\'cc\'b8\'a7 : '||v_tab(i).name||'  \'ba\'ce\'bc\'ad \'c0\'cc\'b8\'a7 : '||v_tab(i).dept_name); --\'b9\'e8\'bf\'ad\'ba\'af\'bc\'f6 fetch\'b4\'eb\'bb\'f3 \'c0\'d6\'b4\'d9\'be\'f8\'b4\'d9 \'c0\'cc\'b7\'b1\'bd\'c4\'c0\'cf\'b6\'a7 \'c0\'fc\'c7\'fc\'c0\'fb\'b8\'f0\'be\'e7\par
+ \tab\tab end loop;\par
+\tab end if;\par
+end name_proc;\par
+/\par
+show error;\par
+\par
+\par
+[\'b9\'ae\'c1\'a650] \'bb\'e7\'bf\'f8\'b5\'e9\'c0\'c7 \'b1\'de\'bf\'a9\'b8\'a6 10% \'c0\'ce\'bb\'f3\'c7\'cf\'b4\'c2 \'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a5\'c0\'bb \'bb\'fd\'bc\'ba\'c7\'d8\'c1\'d6\'bc\'bc\'bf\'e4.\par
+\par
+\par
+declare\par
+   v_num  emp_pkg.numlist := emp_pkg.numlist(100,103,107,110,112,115,160,170,180,190,200);\par
+begin \par
+    emp_pkg.update_sal(v_num);\par
+    rollback;\par
+end;\par
+/\par
+\par
+\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : 100        \'bb\'e7\'bf\'f8\'c0\'cc\'b8\'a7 : King       \'bc\'f6\'c1\'a4 \'b1\'de\'bf\'a9 : 29040\par
+\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : 103        \'bb\'e7\'bf\'f8\'c0\'cc\'b8\'a7 : Hunold     \'bc\'f6\'c1\'a4 \'b1\'de\'bf\'a9 : 9900\par
+\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : 107        \'bb\'e7\'bf\'f8\'c0\'cc\'b8\'a7 : Lorentz    \'bc\'f6\'c1\'a4 \'b1\'de\'bf\'a9 : 4620\par
+\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : 110        \'bb\'e7\'bf\'f8\'c0\'cc\'b8\'a7 : Chen       \'bc\'f6\'c1\'a4 \'b1\'de\'bf\'a9 : 9020\par
+\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : 112        \'bb\'e7\'bf\'f8\'c0\'cc\'b8\'a7 : Urman      \'bc\'f6\'c1\'a4 \'b1\'de\'bf\'a9 : 8580\par
+\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : 115        \'bb\'e7\'bf\'f8\'c0\'cc\'b8\'a7 : Khoo       \'bc\'f6\'c1\'a4 \'b1\'de\'bf\'a9 : 3410\par
+\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : 160        \'bb\'e7\'bf\'f8\'c0\'cc\'b8\'a7 : Doran      \'bc\'f6\'c1\'a4 \'b1\'de\'bf\'a9 : 8250\par
+\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : 170        \'bb\'e7\'bf\'f8\'c0\'cc\'b8\'a7 : Fox        \'bc\'f6\'c1\'a4 \'b1\'de\'bf\'a9 : 10560\par
+\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : 180        \'bb\'e7\'bf\'f8\'c0\'cc\'b8\'a7 : Taylor     \'bc\'f6\'c1\'a4 \'b1\'de\'bf\'a9 : 3520\par
+\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : 190        \'bb\'e7\'bf\'f8\'c0\'cc\'b8\'a7 : Gates      \'bc\'f6\'c1\'a4 \'b1\'de\'bf\'a9 : 3190\par
+\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : 200        \'bb\'e7\'bf\'f8\'c0\'cc\'b8\'a7 : Whalen     \'bc\'f6\'c1\'a4 \'b1\'de\'bf\'a9 : 5808\par
+\par
+\par
+create or replace package emp_pkg\par
+is\par
+  type numlist is table of number;\par
+   \par
+  procedure update_sal(p_id numlist);\par
+  \par
+\par
+end;\par
+/\par
+\par
+create or replace package body emp_pkg\par
+is\par
+\par
+  procedure update_sal(p_id numlist)\tab\par
+  is\par
+\tab  type record_type is record(id number, name varchar2(50), sal number);\par
+  \tab  type table_type is table of record_type;  \par
+  \tab  v_tab table_type;\par
+  begin  \par
+  \tab forall i in  p_id.first..p_id.last  \par
+    \tab      update employees  \par
+     \tab      set salary = salary * 1.1  \par
+    \tab      where employee_id = p_id(i) \par
+             returning employee_id, last_name, salary bulk collect into v_tab;  \par
+  \par
+\tab for i IN v_tab.first..v_tab.last loop\par
+    \tab  dbms_output.put_line('\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3 : '|| rpad(v_tab(i).id,10,' ')||' \'bb\'e7\'bf\'f8\'c0\'cc\'b8\'a7 : '\par
+\tab\tab\tab  ||rpad(v_tab(i).name,10,' ')||' \'bc\'f6\'c1\'a4 \'b1\'de\'bf\'a9 : '||rpad(v_tab(i).sal,10,' '));\par
+  \tab end loop;\par
+\par
+  end;\par
+    \par
+end;  \par
+/\par
+\par
+\'bd\'ba\'c6\'e5\'bf\'a1\'bc\'ad\'bc\'b1\'be\'f0\'c7\'d1 \'b0\'cd \'be\'ee\'b5\'f0\'bc\'ad\'b3\'aa \'bb\'e7\'bf\'eb\'c7\'d2 \'bc\'f6 \'c0\'d6\'b4\'d9.\par
+\par
+\par
+[\'b9\'ae\'c1\'a6 53] \'c0\'d4\'b7\'c2\'b0\'aa\'c0\'b8\'b7\'ce \'b9\'de\'c0\'ba \'bc\'fd\'c0\'da\'b5\'e9\'c0\'c7 \'c7\'d5\'c0\'bb \'b1\'b8\'c7\'cf\'b4\'c2 \'c7\'d4\'bc\'f6, \'c6\'f2\'b1\'d5\'c0\'bb \'b1\'b8\'c7\'cf\'b4\'c2 \'c7\'d4\'bc\'f6\'b8\'a6 \'c6\'d0\'c5\'b0\'c1\'f6\'bf\'a1\'bc\'ad \'bb\'fd\'bc\'ba\'c7\'cf\'bc\'bc\'bf\'e4.\par
+\par
+declare\par
+ v_num agg_pack.num_type := agg_pack.num_type(10,5,2,1,8,9,20,21);\par
+begin\par
+  dbms_output.put_line('\'c7\'d5 : '||agg_pack.sum_fc(v_num));\par
+  dbms_output.put_line('\'c6\'f2\'b1\'d5 : '||agg_pack.avg_fc(v_num));\par
+end;\par
+/\par
+\par
+\'c7\'d5 : 76\par
+\'c6\'f2\'b1\'d5 : 9.5\par
+\par
+\par
+\par
+create or replace package agg_pack\par
+is\par
+  type num_type is table of number;\par
+  function sum_fc(p_num num_type) return number;\par
+  function avg_fc(p_num num_type) return number;\par
+end agg_pack;\par
+/\par
+\par
+show error\par
+\par
+create or replace  package  body  agg_pack\par
+is\par
+  function sum_fc(p_num num_type) return number\par
+  is\par
+    v_sum number := 0;\par
+  begin\par
+    for i in p_num.first..p_num.last loop\par
+\tab\tab v_sum := v_sum + p_num(i);\par
+    end loop;\par
+        return v_sum;\par
+   end;\par
+\par
+   function avg_fc(p_num num_type) return number\par
+   is\par
+\tab v_avg number;\par
+   begin\par
+\tab v_avg := sum_fc(p_num)/p_num.count;\par
+        return v_avg;\par
+   end;\par
+\par
+end agg_pack;\par
+/\par
+\par
+show error\par
+\par
+\par
+1\'c2\'f7\'c0\'fb\'c0\'b8\'b7\'ce \'c6\'e4\'c5\'b0\'c1\'f6\'b8\'a6\'b1\'b8\'bc\'ba \'b1\'d7\'c5\'b8\'c0\'d4\'c0\'bb \'b0\'a1\'c1\'ae\'bf\'cd\'bc\'ad \'bb\'e7\'bf\'eb\par
+\par
+\par
+\par
+\par
+----------------------------------------------------------------------------------------------------------------------------\par
+\b\fs32 <\'c1\'f6\'bc\'d3\'bb\'f3\'c5\'c2-\'c6\'d0\'c5\'b0\'c1\'f6 \'c4\'bf\'bc\'ad>\par
+\b0\fs20\'c6\'d0\'c5\'b0\'c1\'f6\'bf\'a1\'bc\'ad\'b4\'c2 \'c7\'d1\'b9\'f8\'bf\'c0\'c7\'c2\'c7\'d1 \'c4\'bf\'bc\'ad\'b4\'c2 \'c5\'ac\'b7\'ce\'c1\'ee\'c7\'d2\'b6\'a7\'b1\'ee\'c1\'f6 \'b0\'e8\'bc\'d3 \'bf\'ad\'b7\'c1\'c0\'d6\'b4\'d9.\par
+CREATE OR REPLACE PACKAGE pack_cur\par
+IS\tab\par
+  \tab PROCEDURE open;\par
+\tab PROCEDURE next(p_num number);\par
+\tab PROCEDURE close;\par
+END pack_cur;\par
+/\par
+\par
+CREATE OR REPLACE PACKAGE BODY pack_cur\par
+IS\par
+\tab CURSOR c1 IS  \par
+\tab\tab SELECT  employee_id, last_name\par
+\tab\tab FROM    employees\par
+\tab\tab ORDER BY employee_id DESC;\par
+\tab v_empno NUMBER;\par
+\tab v_ename VARCHAR2(10);\par
+\par
+  PROCEDURE open \par
+  IS  \par
+\tab BEGIN  \par
+\tab  IF NOT c1%isopen then\par
+           OPEN c1;\par
+           dbms_output.put_line('c1 cursor open');\par
+         END IF;\par
+  END open;\par
+  \par
+  PROCEDURE next(p_num number)\par
+  IS  \par
+  BEGIN  \par
+\tab\tab LOOP \par
+\tab\tab     EXIT WHEN c1%ROWCOUNT >= p_num;\par
+\tab\tab     FETCH c1 INTO v_empno, v_ename;\par
+\tab\tab     DBMS_OUTPUT.PUT_LINE('Id :' ||v_empno||'  Name :' ||v_ename);\par
+\tab\tab END LOOP;\par
+   END next;\par
+\par
+   PROCEDURE close IS\par
+   BEGIN\par
+\tab\tab\tab IF c1%isopen then\par
+          \tab\tab\tab close c1;\par
+\tab\tab\tab\tab dbms_output.put_line('c1 cursor close');\par
+      \tab\tab\tab END IF;\par
+   END close;\par
+END pack_cur;\par
+/\par
+<<Package \'bd\'c7\'c7\'e0>>\par
+\par
+SQL> SET SERVEROUTPUT ON \par
+         \par
+\b SQL> EXECUTE pack_cur.open --\'b0\'e8\'bc\'d3\'bf\'ad\'b7\'c1\'c0\'d6\'c0\'bd\par
+\b0 c1 cursor open\par
+\par
+PL/SQL procedure successfully completed.\par
+   \par
+SQL> EXECUTE pack_cur.next(3) --\'b0\'e8\'bc\'d3\'bf\'ad\'b7\'c1\'c0\'d6\'b1\'e2 \'b6\'a7\'b9\'ae\'bf\'a1 \'bf\'a9\'b1\'e2\'bc\'ad\'bf\'c0\'b7\'f9\'b0\'a1\'be\'c8\'b3\'b2\par
+Id :206  Name :Gietz\par
+Id :205  Name :Higgins\par
+Id :204  Name :Baer\par
+\par
+PL/SQL procedure successfully completed.\par
+\par
+\par
+\b SQL> EXECUTE pack_cur.next(6) --\'bf\'ad\'b7\'c1\'c0\'d6\'b1\'e2 \'b6\'a7\'b9\'ae\'bf\'a1  4\'b9\'f8\'c2\'b0\'c6\'f7\'c0\'ce\'c6\'ae\'ba\'ce\'c5\'cd \'b4\'a9\'c0\'fb\'b5\'ca 4,5,6\par
+\b0 Id :203  Name :Mavris\par
+Id :202  Name :Fay\par
+Id :201  Name :Hartstein\par
+\par
+PL/SQL procedure successfully completed.\par
+\par
+\b SQL> EXECUTE pack_cur.close --\'c4\'bf\'bc\'ad\'c5\'ac\'b7\'ce\'c1\'ee \'be\'f8\'be\'ee\'c1\'fc\par
+\b0 c1 cursor close\par
+\par
+PL/SQL procedure successfully completed.\par
+\par
+\par
+\par
+\b\fs32 <\'c1\'f6\'bc\'d3\'bb\'f3\'c5\'c2_\'c6\'d0\'c5\'b0\'c1\'f6 \'c4\'bf\'bc\'ad_FETCH_BULK LIMIT>\par
+\fs20 limit+\'c7\'fc\'bd\'c4\'b8\'c5\'b0\'b3\'ba\'af\'bc\'f6 \par
+bulk into \'c7\'d2\'b6\'a7 \'b7\'ce\'bf\'ec\'c0\'c7\'bc\'f6\'b8\'a6 \'c1\'a6\'c7\'d1\'c7\'cf\'b4\'c2\'b0\'cd (select\'b9\'ae\'bf\'a1\'bc\'b1\'be\'c8\'b5\'c7\'b0\'ed fetch\'b9\'ae\'c0\'b8\'b7\'ce\'b8\'b8\'bb\'e7\'bf\'eb\'b0\'a1\'b4\'c9\'c7\'cf\'b4\'d9.)\b0\par
+\par
+CREATE OR REPLACE PACKAGE pack_cur\par
+IS\tab\par
+  \tab PROCEDURE open;\par
+\tab PROCEDURE next(p_num number);\par
+\tab PROCEDURE close;\par
+END pack_cur;\par
+/\par
+\par
+CREATE OR REPLACE PACKAGE BODY pack_cur\par
+IS\par
+\tab CURSOR c1 IS  \par
+\tab\tab SELECT  employee_id, last_name\par
+\tab\tab FROM    employees\par
+\tab\tab ORDER BY employee_id DESC;\par
+\tab\par
+  PROCEDURE open \par
+  IS  \par
+  BEGIN  \par
+      IF NOT c1%isopen then\par
+          OPEN c1;\par
+          dbms_output.put_line('c1 cursor open');\par
+      END IF;\par
+  END open;\par
+  \par
+  PROCEDURE next(p_num number)\par
+  IS\par
+\b\tab type tab_type is table of c1%rowtype;\par
+\b0\tab v_tab tab_type;  \par
+  BEGIN  \par
+       \par
+\b\tab IF c1%notfound THEN\par
+\b0\tab   dbms_output.put_line('\'b5\'a5\'c0\'cc\'c5\'cd\'b0\'a1 \'be\'f8\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+\tab   return;\par
+\b\tab ELSE\par
+\b0\tab\tab FETCH c1 BULK COLLECT INTO v_tab \b limit\b0  p_num; \par
+\b\tab --limit+\'c7\'fc\'bd\'c4\'b8\'c5\'b0\'b3\'ba\'af\'bc\'f6 \'b7\'ce\'bf\'ec\'c0\'c7\'bc\'f6\'b8\'a6 \'c1\'a6\'c7\'d1\'c7\'cf\'b4\'c2\'b0\'cd (select\'b9\'ae\'bf\'a1\'bc\'b1\'be\'c8\'b5\'c7\'b0\'ed fetch\'b9\'ae\'c0\'b8\'b7\'ce\'b8\'b8\'bb\'e7\'bf\'eb\'b0\'a1\'b4\'c9\'c7\'cf\'b4\'d9.)\b0\par
+      \tab END IF;\par
+   \par
+   FOR i IN v_tab.first..v_tab.last LOOP\par
+     DBMS_OUTPUT.PUT_LINE('Id :' ||v_tab(i).employee_id||'  Name :' ||v_tab(i).last_name);\par
+   END LOOP;\par
+  END next;\par
+\par
+\tab PROCEDURE close IS\par
+\tab BEGIN\par
+\tab\tab\tab IF c1%isopen then\par
+          \tab\tab\tab close c1;\par
+\tab\tab\tab\tab dbms_output.put_line('c1 cursor close');\par
+      \tab\tab\tab END IF;\par
+\tab END close;\par
+END pack_cur;\par
+/\par
+<<Package \'bd\'c7\'c7\'e0>>\par
+\par
+SQL> SET SERVEROUTPUT ON \par
+         \par
+SQL> EXECUTE pack_cur.open\par
+c1 cursor open\par
+\par
+PL/SQL procedure successfully completed.\par
+   \par
+SQL> EXECUTE pack_cur.next(3)\par
+Id :206  Name :Gietz\par
+Id :205  Name :Higgins\par
+Id :204  Name :Baer\par
+\par
+PL/SQL procedure successfully completed.\par
+\par
+\par
+SQL> EXECUTE pack_cur.next(3)\par
+Id :203  Name :Mavris\par
+Id :202  Name :Fay\par
+Id :201  Name :Hartstein\par
+\par
+PL/SQL procedure successfully completed.\par
+\par
+SQL> EXECUTE pack_cur.close\par
+c1 cursor close\par
+\par
+PL/SQL procedure successfully completed.\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+}
+ 

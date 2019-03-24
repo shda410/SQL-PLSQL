@@ -1,0 +1,684 @@
+{\rtf1\ansi\ansicpg949\deff0{\fonttbl{\f0\fnil\fcharset129 \'b8\'bc\'c0\'ba \'b0\'ed\'b5\'f1;}}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sl240\slmult1\lang18\b\f0\fs32\'c1\'b6\'c7\'d5\'b5\'a5\'c0\'cc\'c5\'cd \'c0\'af\'c7\'fc\par
+\b0\fs20 - \'bd\'ba\'c4\'ae\'b6\'f3 \'c0\'af\'c7\'fc\'b0\'fa\'b4\'c2 \'b4\'de\'b8\'ae \'b4\'d9\'c1\'df\'b0\'aa\'c0\'bb \'ba\'b8\'c0\'af\'c7\'d2 \'bc\'f6 \'c0\'d6\'b4\'d9.\par
+- \'b7\'b9\'c4\'da\'b5\'e5 :\'bc\'ad\'b7\'ce \'b4\'d9\'b8\'a5 \'b5\'a5\'c0\'cc\'c5\'cd \'c0\'af\'c7\'fc\'c0\'c7 \'b0\'aa\'c0\'bb \'c0\'fa\'c0\'e5\par
+- \'b9\'e8\'bf\'ad : \'b5\'bf\'c0\'cf\'c7\'d1 \'b5\'a5\'c0\'cc\'c5\'cd \'c0\'af\'c7\'fc\'c0\'c7 \'b0\'aa\'c0\'bb \'c0\'fa\'c0\'e5\par
+\tab - index by table(\'bf\'ac\'b0\'fc\'b9\'e8\'bf\'ad)\par
+\tab - nested table(\'c1\'df\'c3\'b8\'c5\'d7\'c0\'cc\'ba\'ed) - \'b9\'e8\'bf\'ad\'c7\'cf\'b4\'c2 \'b0\'aa\'c0\'bb \'c0\'cc\'b9\'cc \'be\'cb\'b0\'ed \'c0\'d6\'c0\'bb \'b6\'a7\par
+\tab - varray\par
+\par
+\'c0\'cd\'b8\'ed\'ba\'ed\'b6\'f4\'b1\'b8\'c1\'b6\'be\'c8\'bf\'a1\'bc\'ad\'b4\'c2 \'b9\'d9\'c0\'ce\'b5\'e5\'ba\'af\'bc\'f6\'b8\'a6 \par
+(\'c0\'cd\'b8\'ed\'ba\'ed\'b7\'cf\'b1\'b8\'c1\'b6declare begin exception end)\par
+\'c1\'a6\'be\'e0 \'b1\'db\'b7\'ce\'b9\'fa ~\'b8\'a6 \'c1\'f6\'bf\'f8\'c7\'cf\'c1\'f6\'be\'ca\'be\'c6 \'c5\'f8\'bf\'a1\'bc\'ad\'c1\'f6\'bf\'f8\'c7\'cf\'b4\'c2 \'b9\'d9\'c0\'ce\'b5\'e5\'ba\'af\'bc\'f6\'b8\'a6 \'bb\'e7\'bf\'eb\'c7\'d8\'be\'df\'c7\'d1\'b4\'d9.\par
+\'c4\'c4\'c6\'c4\'c0\'cf \'c7\'d2 \'bc\'f6 \'b9\'db\'bf\'a1\'be\'f8\'b4\'d9. \'c4\'c4\'c6\'c4\'c0\'cf\'c0\'bb \'be\'c8\'b5\'c7\'b0\'d4\'c7\'cf\'b7\'c1\'b8\'e9 (\'be\'f8\'be\'d6\'b7\'c1\'b8\'e9 \'ba\'f1\'bf\'eb\'c0\'cc\'c5\'ad). \'bd\'a6\'be\'ee\'b5\'e5\'c7\'ae\'be\'c8\'c0\'c7 \'b6\'f3\'c0\'cc\'ba\'ea\'b7\'af\'b8\'ae\'c4\'b3\'bd\'ac\'bf\'a1\'c0\'d6\'c0\'b8\'b8\'e9 \'b1\'d7\'b4\'eb\'b7\'ce\'be\'b2\'b0\'ed \'be\'f8\'c0\'b8\'b8\'e9 \'c7\'cf\'b5\'e5\'c6\'c4\'bd\'cc\'b9\'df\'bb\'fd\'c7\'cf\'b0\'d4\'b5\'c8\'b4\'d9. \'c7\'d1\'b0\'e8\'b0\'a1\'c0\'d6\'c1\'f6\'b8\'b8 db\'c0\'d4\'c0\'e5\'bf\'a1\'bc\'ad \'bf\'c0\'ba\'ea\'c1\'a7\'c6\'ae\'b0\'fc\'b8\'ae\'c7\'cf\'b1\'e2\'bf\'a1 \'c1\'c1\'c0\'bd(\'bf\'c0\'ba\'ea\'c1\'a7\'c6\'ae\'c0\'fb\'c0\'b8\'b4\'cf\'b1\'ee)\par
+\'c0\'cd\'b8\'ed\'ba\'ed\'b7\'cf\'b1\'b8\'c1\'b6\'b4\'c2 \'bf\'c0\'ba\'ea\'c1\'a7\'c6\'ae\'b1\'c7\'c7\'d1\'b8\'b8(select, dml)\'c0\'d6\'c0\'b8\'b8\'e9 \'c3\'e6\'ba\'d0\'c8\'f7 \'c2\'a9\'bc\'f6 \'c0\'d6\'b4\'d9. \'c0\'cd\'b8\'ed\'ba\'ed\'b7\'b0\'b1\'b8\'c1\'b6\'b8\'a6\'b8\'f8\'c2\'a5\'b0\'d4\'c7\'d2 \'bc\'f6\'be\'f8\'b4\'d9. \'c1\'a6\'be\'e0\'c0\'cc\'be\'f8\'b4\'d9.\par
+\par
+\par
+declare\par
+\tab type \b tab_char_type\b0  is table of\b  varchar2(10) \b0 index by pls_integer;\par
+\tab\tab --\'c0\'cc\'b8\'a7\tab\tab\tab\'b7\'b9\'c4\'da\'b5\'e5\'be\'b2\'c1\'f6 \'be\'ca\'b4\'c2\'c0\'cc\'bb\'f3 \'c7\'cf\'b3\'aa\'b8\'b8 \par
+\tab v_city tab_char_type;\par
+begin\par
+\tab v_city(1) := '\'bc\'ad\'bf\'ef';\par
+\tab v_city(2) := '\'b4\'eb\'c0\'fc';\par
+\tab v_city(3) := '\'ba\'ce\'bb\'ea';\par
+\tab v_city(4) := '\'b1\'a4\'c1\'d6';\par
+\tab\par
+\tab dbms_output.put_line(v_city.count);\par
+\tab dbms_output.put_line(v_city.first);\par
+\tab dbms_output.put_line(v_city.last);\par
+\tab dbms_output.put_line(v_city.next(1)); --1\'b9\'f8\'b9\'e6 \'b4\'d9\'c0\'bd\'b9\'e6\par
+\tab dbms_output.put_line(v_city.prior(2)); --2\'b9\'f8\'b9\'e6 \'c0\'fc\'b9\'e6\par
+\par
+\tab for i in v_city.first..v_city.last loop\par
+\tab\tab dbms_output.put_line(v_city(i));\par
+\tab end loop;\par
+end;\par
+/\par
+\par
+\b\'c1\'f6\'bf\'ec\'b4\'c2 \'b9\'fd\par
+\b0 declare\par
+\tab type \b tab_char_type\b0  is table of\b  varchar2(10) \b0 index by pls_integer;\par
+\tab\tab --\'c0\'cc\'b8\'a7\tab\tab\tab\'b7\'b9\'c4\'da\'b5\'e5\'be\'b2\'c1\'f6 \'be\'ca\'b4\'c2\'c0\'cc\'bb\'f3 \'c7\'cf\'b3\'aa\'b8\'b8 \par
+\tab v_city tab_char_type;\par
+\par
+begin\par
+\tab v_city(1) := '\'bc\'ad\'bf\'ef';\par
+\tab v_city(2) := '\'b4\'eb\'c0\'fc';\par
+\tab v_city(3) := '\'ba\'ce\'bb\'ea';\par
+\tab v_city(4) := '\'b1\'a4\'c1\'d6';\par
+\tab\par
+\tab dbms_output.put_line(v_city.count);--\'b9\'e8\'bf\'ad\'be\'c8\'bf\'a1 \'b5\'e9\'be\'ee\'c0\'d6\'b4\'c2 \'b0\'aa\'b5\'e9\'c0\'c7 \'b0\'b3\'bc\'f6 \'b0\'c7\'bc\'f6\par
+\tab dbms_output.put_line(v_city.first); --\'b0\'a1\'c0\'e5\'c0\'db\'c0\'ba\'b9\'e6\'b9\'f8\'c8\'a3\par
+\tab dbms_output.put_line(v_city.last);--\'b0\'a1\'c0\'e5\'c5\'ab\'b9\'e6\'b9\'f8\'c8\'a3\par
+\tab dbms_output.put_line(v_city.next(1)); --1\'b9\'f8\'b9\'e6 \'b4\'d9\'c0\'bd\'b9\'e6\par
+\tab dbms_output.put_line(v_city.prior(2)); --2\'b9\'f8\'b9\'e6 \'c0\'fc\'b9\'e6\par
+\b\tab v_city.delete(3);\par
+\tab v_city.delete;\par
+\tab v_city.delete(1,3); --1\'b9\'f8\'b9\'e6\'ba\'ce\'c5\'cd 3\'b9\'f8\'b9\'e6\'b1\'ee\'c1\'f6 \'c1\'f6\'bf\'f2\par
+\tab for i in v_city.first..v_city.last loop\par
+\tab\tab if v_city.lexists(i) then\par
+\tab\tab\tab dbms_output.put_line(v_city(i));\par
+\tab\tab else\par
+\tab\tab\tab dbms_output.put_line(i||' \'bf\'e4\'bc\'d2\'b4\'c2 \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6 \'be\'ca\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+\tab\tab end if;\par
+\b0\tab end loop;\par
+end;\par
+/\par
+no data found \'bf\'c0\'b7\'f9\'b8\'a6 \'b9\'e6\'c1\'f6\'c7\'d2 \'bc\'f6 \'c0\'d6\'b4\'c2 \'b0\'cd\'c0\'cc exists\par
+\par
+\'bf\'a9\'b1\'e2 \'b1\'ee\'c1\'f6\'b0\'a1 index by table\par
+\'b0\'aa\'b5\'e9\'c0\'bb \'b9\'e6\'b9\'f8\'c8\'a3\'b8\'a6 \'bc\'b3\'c1\'a4\'c7\'d8\'bc\'ad \'b0\'aa\'c0\'bb \'b9\'e8\'bf\'ad\'c7\'d8\'c1\'e0\'be\'df\'c7\'d4\par
+\'b4\'f5\'c6\'ed\'c7\'d1\'b9\'e6\'b9\'fd\'c0\'cc \'c7\'c7\'b8\'ae\'bf\'e4\par
+->nested table\'c0\'c7 \'b5\'ee\'c0\'e5\par
+\b\fs32 nested table\b0\par
+\fs20\par
+declare\par
+\tab type tab_char_type is table of varchar2(10) ; --index by \'bf\'e4\'bc\'d2\'b9\'f8\'c8\'a3 \'c7\'a5\'c7\'f6x, \'c0\'da\'b5\'bf\'c0\'b8\'b7\'ce1\'ba\'ce\'c5\'cd 2G\par
+\tab v_city tab_char_type := tab_char_type('\'bc\'ad\'bf\'ef', '\'b4\'eb\'c0\'fc', '\'ba\'ce\'bb\'ea', '\'b1\'a4\'c1\'d6');\par
+\tab --\'b9\'e8\'bf\'ad\'ba\'af\'bc\'f6\'bf\'a1 \'b0\'aa\'c0\'bb \'b3\'d6\'c0\'bb \'b6\'a7\'b4\'c2 \'ba\'af\'bc\'f6 \'c5\'b8\'c0\'d4 :=\'c5\'b8\'c0\'d4(\'b0\'aa\'b3\'aa\'bf\'ad), \'c0\'fa\'c0\'e5\'c7\'d8\'be\'df\'c7\'d2 \'b0\'b9\'bc\'f6\'b0\'a1 2G\'b1\'ee\'c1\'f6\'b8\'b8\'b0\'a1\'b4\'c9\par
+\tab --\'b0\'aa\'b8\'f1\'b7\'cf\'c0\'bb \'c2\'df \'be\'cb\'b0\'ed\'c0\'d6\'b4\'c2\'b0\'e6\'bf\'ec \'be\'b2\'b8\'e9\'c6\'ed\'c7\'cf\'b4\'d9\par
+begin\par
+\tab\par
+\tab dbms_output.put_line(v_city.count);--\'b9\'e8\'bf\'ad\'be\'c8\'bf\'a1 \'b5\'e9\'be\'ee\'c0\'d6\'b4\'c2 \'b0\'aa\'b5\'e9\'c0\'c7 \'b0\'b3\'bc\'f6 \'b0\'c7\'bc\'f6\par
+\tab dbms_output.put_line(v_city.first); --\'b0\'a1\'c0\'e5\'c0\'db\'c0\'ba\'b9\'e6\'b9\'f8\'c8\'a3\par
+\tab dbms_output.put_line(v_city.last);--\'b0\'a1\'c0\'e5\'c5\'ab\'b9\'e6\'b9\'f8\'c8\'a3\par
+\tab dbms_output.put_line(v_city.next(1)); --1\'b9\'f8\'b9\'e6 \'b4\'d9\'c0\'bd\'b9\'e6\par
+\tab dbms_output.put_line(v_city.prior(2)); --2\'b9\'f8\'b9\'e6 \'c0\'fc\'b9\'e6\par
+\tab --v_city.delete(3);\par
+\tab --v_city.delete;\par
+\tab --v_city.delete(1,3); --1\'b9\'f8\'b9\'e6\'ba\'ce\'c5\'cd 3\'b9\'f8\'b9\'e6\'b1\'ee\'c1\'f6 \'c1\'f6\'bf\'f2\par
+\tab for i in v_city.first..v_city.last loop\par
+\tab\tab if v_city.lexists(i) then\par
+\tab\tab\tab dbms_output.put_line(v_city(i));\par
+\tab\tab else\par
+\tab\tab\tab dbms_output.put_line(i||' \'bf\'e4\'bc\'d2\'b4\'c2 \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6 \'be\'ca\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+\tab\tab end if;\par
+\tab end loop;\par
+end;\par
+/\par
+\par
+32276\par
+\par
+\par
+\b index by 3\'b0\'a1\'c1\'f6\'c5\'b8\'c0\'d4  vs. nested\'c5\'d7\'c0\'cc\'ba\'ed\par
+\b0\'b9\'e8\'bf\'ad\'be\'c8\'c0\'c7 \'b0\'aa\'b5\'e9 \'b8\'b9\'c1\'f6\'be\'ca\'b0\'ed \'be\'cb\'b0\'ed\'c0\'d6\'be\'ee->\'b4\'c3\'be\'ee\'b6\'df\'b7\'c1\'b3\'f5\'b4\'c2\'b0\'d4 \'c1\'c1\'c0\'bd->\'b3\'d7\'bd\'ba\'c6\'bc\'b5\'e5\'c5\'d7\'c0\'cc\'ba\'ed\par
+for\'b9\'ae\'c0\'bb \'c0\'cc\'bf\'eb\'c7\'cf\'b0\'c5\'b3\'aa \'c1\'b6\'c8\'b8\'c7\'d1\'b0\'aa\'c0\'bb \'b9\'e8\'bf\'ad\'ba\'af\'bc\'f6\'be\'c8\'bf\'a1 \'b3\'d6\'b0\'ed \'bd\'cd\'c0\'ba\'b0\'e6\'bf\'ec->\'b0\'a1\'ba\'af\'c3\'b3\'b7\'b3\'be\'b2\'b7\'c1\'b8\'e9 index by 3\'c5\'b8\'c0\'d4\par
+\par
+\par
+\'b4\'eb\'b1\'b8\'b8\'a6 \'c3\'df\'b0\'a1\'c7\'d8\'ba\'b8\'b0\'ed\'bd\'cd\'be\'ee!~!\par
+declare\par
+\tab type tab_char_type is table of varchar2(10) ; --index by \'bf\'e4\'bc\'d2\'b9\'f8\'c8\'a3 \'c7\'a5\'c7\'f6x, \'c0\'da\'b5\'bf\'c0\'b8\'b7\'ce1\'ba\'ce\'c5\'cd 2G\par
+\tab v_city tab_char_type := tab_char_type('\'bc\'ad\'bf\'ef', '\'b4\'eb\'c0\'fc', '\'ba\'ce\'bb\'ea', '\'b1\'a4\'c1\'d6');\par
+begin\par
+\tab\par
+\tab dbms_output.put_line(v_city.count);--\'b9\'e8\'bf\'ad\'be\'c8\'bf\'a1 \'b5\'e9\'be\'ee\'c0\'d6\'b4\'c2 \'b0\'aa\'b5\'e9\'c0\'c7 \'b0\'b3\'bc\'f6 \'b0\'c7\'bc\'f6\par
+\tab dbms_output.put_line(v_city.first); --\'b0\'a1\'c0\'e5\'c0\'db\'c0\'ba\'b9\'e6\'b9\'f8\'c8\'a3\par
+\tab dbms_output.put_line(v_city.last);--\'b0\'a1\'c0\'e5\'c5\'ab\'b9\'e6\'b9\'f8\'c8\'a3\par
+\tab dbms_output.put_line(v_city.next(1)); --1\'b9\'f8\'b9\'e6 \'b4\'d9\'c0\'bd\'b9\'e6\par
+\tab dbms_output.put_line(v_city.prior(2)); --2\'b9\'f8\'b9\'e6 \'c0\'fc\'b9\'e6\par
+\tab /* v_city.delete(3);\tab --v_city.delete;\tab --v_city.delete(1,3); --1\'b9\'f8\'b9\'e6\'ba\'ce\'c5\'cd 3\'b9\'f8\'b9\'e6\'b1\'ee\'c1\'f6 \'c1\'f6\'bf\'f2 */\par
+\b\tab v_city(5) ;= '\'b4\'eb\'b1\'b8'\par
+\b0\tab for i in v_city.first..v_city.last loop\par
+\tab\tab if v_city.lexists(i) then\par
+\tab\tab\tab dbms_output.put_line(v_city(i));\par
+\tab\tab else\par
+\tab\tab\tab dbms_output.put_line(i||' \'bf\'e4\'bc\'d2\'b4\'c2 \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6 \'be\'ca\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+\tab\tab end if;\par
+\tab end loop;\par
+end;\par
+/\par
+\'c0\'cc\'b7\'b8\'b0\'d4\'be\'b2\'b8\'e9 \'bf\'c0\'b7\'f9\'b3\'ad\'b4\'d9.\par
+\'b3\'d7\'bd\'ba\'c6\'bc\'b5\'e5\'c5\'d7\'c0\'cc\'ba\'ed\'c0\'ba \'c8\'ae\'c0\'e5\'c0\'cc \'be\'c8\'b5\'c8\'b4\'d9.\par
+\'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a5\'b3\'bb\'bf\'a1\'bc\'ad \'bb\'f5\'b7\'ce\'bf\'ee\'b0\'aa\'c0\'bb \'c3\'df\'b0\'a1\'c7\'cf\'b0\'ed\'bd\'cd\'be\'ee\'b5\'b5 \'be\'c8\'b5\'c8\'b4\'d9.\par
+->\'c8\'ae\'c0\'e5\'c0\'bb \'b8\'d5\'c0\'fa\'c7\'d8\'c1\'e0\'be\'df\'c7\'d1\'b4\'d9.\par
+declare\par
+\tab type tab_char_type is table of varchar2(10) ; --index by \'bf\'e4\'bc\'d2\'b9\'f8\'c8\'a3 \'c7\'a5\'c7\'f6x, \'c0\'da\'b5\'bf\'c0\'b8\'b7\'ce1\'ba\'ce\'c5\'cd 2G\par
+\tab v_city tab_char_type := tab_char_type('\'bc\'ad\'bf\'ef', '\'b4\'eb\'c0\'fc', '\'ba\'ce\'bb\'ea', '\'b1\'a4\'c1\'d6');\par
+begin\par
+\tab\par
+\tab dbms_output.put_line(v_city.count);--\'b9\'e8\'bf\'ad\'be\'c8\'bf\'a1 \'b5\'e9\'be\'ee\'c0\'d6\'b4\'c2 \'b0\'aa\'b5\'e9\'c0\'c7 \'b0\'b3\'bc\'f6 \'b0\'c7\'bc\'f6\par
+\tab dbms_output.put_line(v_city.first); --\'b0\'a1\'c0\'e5\'c0\'db\'c0\'ba\'b9\'e6\'b9\'f8\'c8\'a3\par
+\tab dbms_output.put_line(v_city.last);--\'b0\'a1\'c0\'e5\'c5\'ab\'b9\'e6\'b9\'f8\'c8\'a3\par
+\tab dbms_output.put_line(v_city.next(1)); --1\'b9\'f8\'b9\'e6 \'b4\'d9\'c0\'bd\'b9\'e6\par
+\tab dbms_output.put_line(v_city.prior(2)); --2\'b9\'f8\'b9\'e6 \'c0\'fc\'b9\'e6\par
+\tab /* v_city.delete(3);\tab --v_city.delete;\tab --v_city.delete(1,3); --1\'b9\'f8\'b9\'e6\'ba\'ce\'c5\'cd 3\'b9\'f8\'b9\'e6\'b1\'ee\'c1\'f6 \'c1\'f6\'bf\'f2 */\par
+\b\tab v_city.extend(1);\par
+\tab v_city(5) ;= '\'b4\'eb\'b1\'b8'\par
+\b0\tab for i in v_city.first..v_city.last loop\par
+\tab\tab if v_city.lexists(i) then\par
+\tab\tab\tab dbms_output.put_line(v_city(i));\par
+\tab\tab else\par
+\tab\tab\tab dbms_output.put_line(i||' \'bf\'e4\'bc\'d2\'b4\'c2 \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6 \'be\'ca\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+\tab\tab end if;\par
+\tab end loop;\par
+end;\par
+/\par
+\b v_city.extend(1); -- \'c7\'d1\'c4\'ad\'c8\'ae\'c0\'e5 \tab\tab v_city.extend(2);--\'b5\'ce\'c4\'ad\'c8\'ae\'c0\'e5  \'c1\'f6\'bc\'d3\'c0\'fb\'c0\'b8\'b7\'ce \'c8\'ae\'c0\'e5\par
+\par
+\b0\par
+\par
+declare\par
+\tab type tab_char_type is table of varchar2(10) ; --index by \'bf\'e4\'bc\'d2\'b9\'f8\'c8\'a3 \'c7\'a5\'c7\'f6x, \'c0\'da\'b5\'bf\'c0\'b8\'b7\'ce1\'ba\'ce\'c5\'cd 2G\par
+\tab v_city tab_char_type := tab_char_type('\'bc\'ad\'bf\'ef', '\'b4\'eb\'c0\'fc', '\'ba\'ce\'bb\'ea', '\'b1\'a4\'c1\'d6');\par
+begin\par
+\tab\par
+\tab dbms_output.put_line(v_city.count);--\'b9\'e8\'bf\'ad\'be\'c8\'bf\'a1 \'b5\'e9\'be\'ee\'c0\'d6\'b4\'c2 \'b0\'aa\'b5\'e9\'c0\'c7 \'b0\'b3\'bc\'f6 \'b0\'c7\'bc\'f6\par
+\tab dbms_output.put_line(v_city.first); --\'b0\'a1\'c0\'e5\'c0\'db\'c0\'ba\'b9\'e6\'b9\'f8\'c8\'a3\par
+\tab dbms_output.put_line(v_city.last);--\'b0\'a1\'c0\'e5\'c5\'ab\'b9\'e6\'b9\'f8\'c8\'a3\par
+\tab dbms_output.put_line(v_city.next(1)); --1\'b9\'f8\'b9\'e6 \'b4\'d9\'c0\'bd\'b9\'e6\par
+\tab dbms_output.put_line(v_city.prior(2)); --2\'b9\'f8\'b9\'e6 \'c0\'fc\'b9\'e6\par
+\tab /* v_city.delete(3);\tab --v_city.delete;\tab --v_city.delete(1,3); --1\'b9\'f8\'b9\'e6\'ba\'ce\'c5\'cd 3\'b9\'f8\'b9\'e6\'b1\'ee\'c1\'f6 \'c1\'f6\'bf\'f2 */\par
+\b\tab v_city.delete(3);\tab\par
+\tab --v_city.extend(1);\par
+\tab v_city(3) ;= '\'b4\'eb\'b1\'b8'\par
+\b0\tab for i in v_city.first..v_city.last loop\par
+\tab\tab if v_city.lexists(i) then\par
+\tab\tab\tab dbms_output.put_line(v_city(i));\par
+\tab\tab else\par
+\tab\tab\tab dbms_output.put_line(i||' \'bf\'e4\'bc\'d2\'b4\'c2 \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6 \'be\'ca\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+\tab\tab end if;\par
+\tab end loop;\par
+end;\par
+/\par
+3\'b9\'f8\'bf\'e4\'bc\'d2 \'c1\'f6\'bf\'ec\'b0\'ed \'b4\'eb\'b1\'b8\'b8\'a6 \'b3\'d6\'b0\'da\'b5\'fb. ->\'b5\'e9\'be\'ee\'b0\'a8\par
+\par
+\b v_city(5) ;= '\'b4\'eb\'b1\'b8'\par
+\b0\'c0\'cc\'b7\'b1\'bd\'c4\'c0\'b8\'b7\'ce 3\'b9\'f8\'c1\'f6\'bf\'ec\'b0\'ed 5\'b9\'f8\'bf\'a1\'b3\'d6\'b0\'da\'b4\'d9. \'ba\'d2\'b0\'a1\'b4\'c9\par
+\'c1\'f6\'bf\'ee\'c0\'da\'b8\'ae\'bf\'a1 \'b3\'d6\'c0\'bb \'bc\'f6\'b4\'c2 \'c0\'d6\'c1\'f6\'b8\'b8 \'b3\'d6\'c0\'bb \'bc\'f6 \'be\'f8\'b4\'d9.\par
+\par
+\'c0\'af\'bf\'ac\'bc\'ba\'c0\'ba index by table\'c0\'cc\'b4\'f5\'c1\'c1\'b1\'e4\'c7\'cf\'b3\'d7..\par
+\par
+\par
+\par
+\par
+[\'b9\'ae\'c1\'a627] \'b9\'e8\'bf\'ad \'ba\'af\'bc\'f6\'bf\'a1 \'c0\'d6\'b4\'c2 100,101,102,103,104, 200 \'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3\'b8\'a6 \'b1\'e2\'c1\'d8\'c0\'b8\'b7\'ce \'bb\'e7\'bf\'f8 \'c0\'cc\'b8\'a7, \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6 150\'b0\'b3\'bf\'f9\'c0\'cc\'bb\'f3 \'b5\'c7\'be\'fa\'c0\'b8\'b8\'e9 \'b1\'de\'bf\'a9(salary)\'b8\'a6 10% \'c0\'ce\'bb\'f3\'c7\'d1 \'b1\'de\'bf\'a9\'b7\'ce \'bc\'f6\'c1\'a4\'c7\'d1 \'c8\'c4 , \'c0\'ce\'bb\'f3 \'c0\'fc \'b1\'de\'bf\'a9, \'c0\'ce\'bb\'f3 \'c8\'c4 \'b1\'de\'bf\'a9\'b8\'a6 \'c3\'e2\'b7\'c2\'c7\'cf\'b4\'c2  \'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a5\'c0\'bb \'c0\'db\'bc\'ba\'c7\'cf\'bc\'bc\'bf\'e4.\par
+\par
+\par
+\'bb\'e7\'bf\'f8 \'b9\'f8\'c8\'a3 : 100 \'bb\'e7\'bf\'f8 \'c0\'cc\'b8\'a7 :  King    \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6 :  166 \'c0\'ce\'bb\'f3 \'c0\'fc \'b1\'de\'bf\'a9 : 24000 \'c0\'ce\'bb\'f3 \'c8\'c4 \'b1\'de\'bf\'a9 : 26400\par
+\'bb\'e7\'bf\'f8 \'b9\'f8\'c8\'a3 : 101 \'bb\'e7\'bf\'f8 \'c0\'cc\'b8\'a7 :  Kochhar \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6 :  139 17000 \'b1\'de\'bf\'a9\'b4\'c2 \'c0\'ce\'bb\'f3\'c7\'d2 \'bc\'f6 \'be\'f8\'bd\'c0\'b4\'cf\'b4\'d9.\par
+\'bb\'e7\'bf\'f8 \'b9\'f8\'c8\'a3 : 102 \'bb\'e7\'bf\'f8 \'c0\'cc\'b8\'a7 :  De Haan \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6 :  195 \'c0\'ce\'bb\'f3 \'c0\'fc \'b1\'de\'bf\'a9 : 17000 \'c0\'ce\'bb\'f3 \'c8\'c4 \'b1\'de\'bf\'a9 : 18700\par
+\'bb\'e7\'bf\'f8 \'b9\'f8\'c8\'a3 : 103 \'bb\'e7\'bf\'f8 \'c0\'cc\'b8\'a7 :  Hunold  \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6 :  135 9000 \'b1\'de\'bf\'a9\'b4\'c2 \'c0\'ce\'bb\'f3\'c7\'d2 \'bc\'f6 \'be\'f8\'bd\'c0\'b4\'cf\'b4\'d9.\par
+\'bb\'e7\'bf\'f8 \'b9\'f8\'c8\'a3 : 104 \'bb\'e7\'bf\'f8 \'c0\'cc\'b8\'a7 :  Ernst   \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6 :  119 6000 \'b1\'de\'bf\'a9\'b4\'c2 \'c0\'ce\'bb\'f3\'c7\'d2 \'bc\'f6 \'be\'f8\'bd\'c0\'b4\'cf\'b4\'d9.\par
+\'bb\'e7\'bf\'f8 \'b9\'f8\'c8\'a3 : 200 \'bb\'e7\'bf\'f8 \'c0\'cc\'b8\'a7 :  Whalen  \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6 :  163 \'c0\'ce\'bb\'f3 \'c0\'fc \'b1\'de\'bf\'a9 : 4400 \'c0\'ce\'bb\'f3 \'c8\'c4 \'b1\'de\'bf\'a9 : 4840\par
+\par
+DECLARE  \par
+    TYPE  emp_rec_type IS RECORD(a varchar2(50), b number, c number);\par
+    TYPE  emp_tab_type IS TABLE OF emp_rec_type INDEX BY binary_integer;\par
+    v_tab emp_tab_type;\par
+    TYPE id_type IS TABLE OF number;  \par
+    v_id id_type := id_type(100,101,102,103,104,200);      \par
+    v_sal number;    \par
+BEGIN  \par
+   FOR i in v_id.first..v_id.last LOOP\par
+    SELECT last_name, salary, trunc(months_between(sysdate,hire_date))\par
+    INTO v_tab(i)\par
+    FROM employees\par
+    WHERE employee_id = v_id(i);\par
+    IF v_tab(i).c >= 150 THEN\par
+      UPDATE employees\par
+      SET salary = salary * 1.1\par
+      WHERE employee_id = v_id(i)\par
+      RETURNING salary INTO v_sal;\par
+      DBMS_OUTPUT.PUT_LINE('\'bb\'e7\'bf\'f8 \'b9\'f8\'c8\'a3 : '||v_id(i) ||' \'bb\'e7\'bf\'f8 \'c0\'cc\'b8\'a7 :  '||v_tab(i).a\par
+        || ' \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6 : ' || v_tab(i).c || ' \'c0\'ce\'bb\'f3 \'c0\'fc \'b1\'de\'bf\'a9 : '||v_tab(i).b ||' \'c0\'ce\'bb\'f3 \'c8\'c4 \'b1\'de\'bf\'a9 : ' ||v_sal);\par
+    ELSE\par
+      DBMS_OUTPUT.PUT_LINE('\'bb\'e7\'bf\'f8 \'b9\'f8\'c8\'a3 : '||v_id(i) ||' \'bb\'e7\'bf\'f8 \'c0\'cc\'b8\'a7 :  '||v_tab(i).a\par
+        || ' \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6 : ' || v_tab(i).c ||  ' '||v_tab(i).b ||' \'b1\'de\'bf\'a9\'b4\'c2 \'c0\'ce\'bb\'f3\'c7\'d2 \'bc\'f6 \'be\'f8\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+    END IF;\par
+   END LOOP; \par
+\par
+   rollback;\par
+ \par
+END;  \par
+/ \par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+declare\par
+\tab type tab_char_tyipe is \b varray(5) \b0 of varchar2(10);\par
+\tab v_city tab_char_type := tab_char_type('\'bc\'ad\'bf\'ef','\'ba\'ce\'bb\'ea','\'b4\'eb\'c0\'fc');\par
+\par
+begin\par
+\b\tab v_city.extend(2);\par
+\b0\tab v_city(4) :='\'b1\'a4\'c1\'d6';\par
+\tab for i in v_city.first..v_city.last loop\par
+\tab\tab dbms_output.put_line(v_city(i);\par
+\tab end loop;\par
+\tab\par
+end;\par
+/\par
+\par
+varray\'ba\'ea\'c0\'cc\'be\'ee\'b7\'b9\'c0\'cc \'b3\'d7\'bd\'ba\'c6\'bc\'b5\'e5\'c5\'d7\'c0\'cc\'ba\'ed\'c3\'b3\'b7\'b3 \'bb\'e7\'bf\'eb, \'b5\'e9\'be\'ee\'b0\'a1\'b4\'c2 \'b0\'aa \'b4\'d9 \'be\'cb\'c1\'f6\'b8\'b8 \'b4\'d9\'b8\'a5\'c1\'a1\'c0\'ba \b\'bf\'e4\'bc\'d2\'c0\'c7 \'b0\'b9\'bc\'f6\'b8\'a6 \'c1\'a6\'c7\'d1\'c7\'d2 \'bc\'f6 \'c0\'d6\'b4\'d9.\b0  varray(5)\'bf\'a1\'b4\'c2, 5\'b0\'b3\'c0\'c7 \'ba\'af\'bc\'f6\'b8\'b8 \'b3\'d6\'c0\'bb \'bc\'f6 \'c0\'d6\'be\'ee.\par
+\'c0\'cf\'b9\'dd\'c0\'fb\'c0\'ce \'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a5 \'b0\'aa\'c0\'ba \'ba\'b8\'c5\'eb varray\par
+\'c3\'df\'b0\'a1\'c7\'cf\'b0\'ed\'bd\'cd\'c0\'b8\'b8\'e9 extend\par
+5\'b0\'b3\'b7\'ce \'c3\'ca\'b1\'e2\'b0\'aa \'b5\'c7\'be\'ee\'c0\'d6\'be\'ee\'bc\'ad \'c7\'f6\'c0\'e7\'bc\'bc\'b0\'b3\'bd\'e8\'c0\'b8\'b4\'cf 2\'b0\'b3\'b8\'b8 \'c0\'cd\'bd\'ba\'c5\'d9\'b5\'e5\'c7\'d2 \'bc\'f6 \'c0\'d6\'b4\'d9. ->\'c8\'ae\'c0\'e5\'c0\'cc\'be\'c8\'b5\'ca\par
+\par
+index by \'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a5\'c0\'cc\'b5\'b9\'be\'c6\'b0\'a1\'b8\'e9\'bc\'ad \'c8\'ae\'c0\'e5\'c7\'d8\'be\'df\'c7\'d2\'b6\'a7\par
+nested \par
+varray\par
+\'b8\'de\'bd\'ee\'b5\'e5\'b4\'c2 \'b4\'d9\'b0\'b0\'c0\'cc \'b0\'f8\'c5\'eb\'c0\'fb\'c0\'b8\'b7\'ce \'bb\'e7\'bf\'eb\'c7\'d1\'b4\'d9. \'b8\'de\'bc\'d2\'b5\'e5 \'c4\'ab\'bf\'ee\'c6\'ae first last next prior exists extend...\par
+\par
+\par
+[\'b9\'ae\'c1\'a628] \'b9\'e8\'bf\'ad\'bf\'a1 1,2,4,5,6,10,20,21,55,60,22,8,0,6,20,40,6,9 \'b0\'aa\'c0\'cc \'c0\'d6\'bd\'c0\'b4\'cf\'b4\'d9.\par
+\tab  \'c3\'a3\'b4\'c2 \'bc\'fd\'c0\'da\'c0\'c7 \'b9\'e8\'bf\'ad \'c0\'a7\'c4\'a1 \'c1\'a4\'ba\'b8 \'c3\'d1\'b0\'b9\'bc\'f6 \'c1\'a4\'ba\'b8\'b8\'a6 \'c3\'e2\'b7\'c2\'c7\'cf\'bc\'bc\'bf\'e4.\par
+\par
+<\'c8\'ad\'b8\'e9\'b0\'e1\'b0\'fa>\par
+\par
+20 \'b0\'aa\'c0\'ba \'b9\'e8\'bf\'ad\'bf\'a1 7,15 \'c0\'a7\'c4\'a1\'bf\'a1 \'c0\'d6\'c0\'b8\'b8\'e7 \'c3\'d1 2 \'b0\'b3 \'c0\'d6\'bd\'c0\'b4\'cf\'b4\'d9.\par
+\par
+100 \'b0\'aa\'c0\'ba \'be\'f8\'bd\'c0\'b4\'cf\'b4\'d9.\par
+\par
+declare\par
+  type num_type is table of number;\par
+  v_num num_type := num_type(1,2,4,5,6,10,20,21,55,60,22,8,0,6,20,40,6,9);\par
+  v_find number := 20;\par
+  v_position varchar2(100);\par
+  v_cn number := 0;\par
+begin\par
+  for i in v_num.first..v_num.last loop\par
+    if v_num(i) = v_find then\par
+        v_position :=  v_position ||','||to_char(i) ;      \par
+        v_cn := v_cn + 1;\par
+    end if;\par
+  end loop;\par
+   \par
+   if v_cn > 0 then\par
+      dbms_output.put_line(v_find || ' \'b0\'aa\'c0\'ba \'b9\'e8\'bf\'ad\'bf\'a1 ' ||ltrim(v_position,',')|| ' \'c0\'a7\'c4\'a1\'bf\'a1 \'c0\'d6\'c0\'b8\'b8\'e7 \'c3\'d1 ' ||v_cn || ' \'b0\'b3 \'c0\'d6\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+   else\par
+      dbms_output.put_line(v_find || ' \'b0\'aa\'c0\'ba \'be\'f8\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+   end if;\par
+   \par
+end;\par
+/\par
+\par
+\par
+\par
+\par
+\par
+\par
+cursor : \'b8\'de\'b8\'f0\'b8\'ae \'c6\'f7\'c0\'ce\'c5\'cd, sql\'b9\'ae \'bd\'c7\'c7\'e0 \'b8\'de\'b8\'f0\'b8\'ae \'bf\'b5\'bf\'aa\par
+implicit cursor(\'be\'cf\'bd\'c3\'c0\'fb \'c4\'bf\'bc\'ad) \par
+- \'c4\'bf\'bc\'ad\'b8\'a6 \'bf\'c0\'b6\'f3\'c5\'ac\'c0\'cc \'bb\'fd\'bc\'ba\'b0\'fc\'b8\'ae\'c7\'d1\'b4\'d9.\par
+- \'b3\'bb\'ba\'ce\'c0\'fb\'c0\'b8\'b7\'ce select .. into..\'c0\'fd(\'b9\'dd\'b5\'e5\'bd\'c3 1\'b0\'b3\'c0\'c7 \'b7\'ce\'bf\'ec\'b8\'b8 fetch\'c7\'d8\'be\'df \'c7\'d1\'b4\'d9.)\par
+- dml(insert, update, delete, merge)\par
+\b - \'be\'cf\'bd\'c3\'c0\'fb \'c4\'bf\'bc\'ad \'bc\'d3\'bc\'ba\par
+\b0\tab\tab sql%rowcount, sql%found, sql%notfound\par
+\par
+\'c4\'bf\'bc\'ad\'b0\'fc\'b8\'ae\'b8\'a6 \'b3\'bb\'b0\'a1 \'bd\'ba\'bd\'ba\'b7\'ce \'c7\'cf\'c0\'da.->\'ba\'b8\'bf\'cf\'b5\'c7\'be\'ee \'b3\'aa\'bf\'c2\'b0\'cd\'c0\'cc \'b8\'ed\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad\par
+explicit cursor(\'b8\'ed\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad)\par
+- \'bf\'a9\'b7\'af\'b0\'b3\'c0\'c7 row\'b8\'a6 fetch\'c7\'d8\'be\'df \'c7\'d1\'b4\'d9\'b8\'e9 \'b8\'ed\'bd\'c3\'c0\'fb \'c4\'bf\'bc\'ad\'b8\'a6 \'bb\'e7\'bf\'eb\par
+- \'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a1\'b8\'d3\'b0\'a1 \'c4\'bf\'bc\'ad\'b8\'a6 \'bb\'fd\'bc\'ba\'b0\'fc\'b8\'ae\'c7\'d8\'be\'df\'c7\'d1\'b4\'d9. \par
+- parse bind execute fetch(\'bc\'bf\'b7\'ba\'b9\'ae\'c0\'c7 \'b0\'fa\'c1\'a4)\'c0\'bb \'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a5 \'be\'c8\'bf\'a1 \'c1\'f7\'c1\'a2\'b3\'d6\'b4\'c2 \'b0\'cd\par
+\par
+\'c4\'bf\'bc\'ad\'bb\'fd\'bc\'ba \'b8\'de\'b8\'f0\'b8\'ae\'bb\'fd\'bc\'ba \'c7\'cf\'bf\'a9 \'c6\'c4\'bd\'ba\'b9\'d9\'c0\'ce\'b5\'e5\'c0\'cd\'bd\'ba\'c5\'a5\'c6\'ae \'c4\'bf\'bc\'ad\'bf\'a1 \'c6\'e4\'c4\'a1\'b4\'c2 \'ba\'af\'bc\'f6\'bf\'a1\par
+\'ba\'af\'bc\'f6\'bf\'a1 \'bf\'a2\'c6\'bc\'ba\'ea\'bc\'c2\'b0\'e1\'b0\'fa\'b8\'a6 \'c7\'d8\'c1\'d6\'b4\'c2 fetch\'b4\'dc\'b0\'e8\'b8\'a6 \'b3\'bb\'b0\'a1\'c7\'cf\'b4\'c2 \'b0\'cd\'c0\'d3 \par
+\b\fs24 -\'b8\'ed\'bd\'c3\'c0\'fb \'c4\'bf\'bc\'ad \'bc\'d3\'bc\'ba\par
+\b0\fs20\'b8\'ed\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad\'c0\'cc\'b8\'a7%notfound \tab : fetch\'c7\'d1\'b0\'d4 \'be\'f8\'c0\'b8\'b8\'e9 true \'c0\'d6\'c0\'b8\'b8\'e9 false\par
+\'b8\'ed\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad\'c0\'cc\'b8\'a7%found\tab\tab : fetch\'c7\'d1\'b0\'d4 \'c0\'d6\'c0\'b8\'b8\'e9 true \'be\'f8\'c0\'b8\'b8\'e9 false\par
+\'b8\'ed\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad\'c0\'cc\'b8\'a7%rowcount \tab : fetch\'c7\'d1 \'b0\'c7\'bc\'f6\par
+\'b8\'ed\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad\'c0\'cc\'b8\'a7%isopen \tab : \'b8\'ed\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad\'b0\'a1 open\'c0\'cc \'b5\'c7\'be\'ee\'c0\'d6\'c0\'b8\'b8\'e9 true, \'be\'c6\'b4\'cf\'b8\'e9 false \par
+(IF not c1%isopen then OPEN c1;\par
+End If; \'c0\'cc\'b7\'b1\'bd\'c4)\par
+\par
+select * from employees where employee_id = 100;\par
+\par
+select * from employees where department_id =20;\par
+\par
+\'c1\'b6\'b0\'c7\'c0\'fd\'ba\'b8\'b8\'e9 \'c0\'af\'b4\'cf\'c5\'a9\'b0\'aa\'bf\'a9\'ba\'ce\'bf\'a1 \'b5\'fb\'b6\'f3 \'be\'cf\'bd\'c3\'c0\'fb\'c0\'ce\'c1\'f6, \'b8\'ed\'bd\'c3\'c0\'fb\'c0\'ce\'c1\'f6 \'c6\'c7\'b4\'dc\'c7\'cf\'bf\'a9 \'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a5\'bf\'a1 \'b3\'d6\'b4\'c2\'b4\'d9.\par
+ex)\tab\'c3\'b9\'b9\'f8\'c2\'b0\'b4\'c2 emplyee_id \'c0\'af\'b4\'cf\'c5\'a9\'b0\'aa ->\'be\'cf\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad\par
+\tab\'b5\'ce\'b9\'f8\'c2\'b0\'b4\'c2 department_id \'c0\'af\'b4\'cf\'c5\'a9\'b0\'aa\'be\'c6\'b4\'d4->\'b8\'ed\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad\par
+\par
+declare\par
+\tab\b /* 1. \'c4\'bf\'bc\'ad \'bc\'b1\'be\'f0*/\b0\par
+\tab\b cursor\b0  emp_cur \b is\b0  --\'c0\'cc \'b8\'de\'b8\'f0\'b8\'ae\'b7\'ce \'c4\'bf\'bc\'ad\'b8\'a6 \'c7\'d2\'b4\'e7\'c7\'d8 \'c4\'bf\'bc\'ad\'c0\'cc\'b8\'a7\par
+\tab\tab select * from employees where department_id =20; \par
+\tab\tab --\'bf\'a9\'b7\'af\'b0\'c7\'c0\'cc \'b9\'ab\'c1\'b6\'b0\'c7 \'b5\'b9\'be\'c6\'b0\'a1\'be\'df\'c7\'d4->\'b8\'ed\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad\par
+\pard\li720\sl240\slmult1 v_name varchar2(30);\par
+\pard\sl240\slmult1 begin\par
+\tab\b /*2. \'c4\'bf\'bc\'ad open : \'b8\'de\'b8\'f0\'b8\'ae \'c7\'d2\'b4\'e7, parse, bind, execute, fetch   */\par
+\b0\tab\b open \b0 emp_cur; \par
+\tab -- \'bc\'ad\'b9\'f6\'c7\'c1\'b7\'ce\'bc\'bc\'bd\'ba \'be\'c8\'c0\'c7 \'c4\'bf\'bc\'ad\'bf\'a1 \'b8\'b8\'b5\'e9\'be\'ee\'c1\'fc \par
+\tab -- \'c6\'c4\'bd\'ba\'bd\'c3\'bf\'a1\'b8\'b8\'b5\'e7 \'b0\'aa \'b5\'a5\'c0\'cc\'c5\'cd\'b9\'f6\'c6\'db\'c4\'b3\'bd\'c3\'bf\'a1\'c0\'d6\'b4\'c2\'c1\'f6 \'c3\'a3\'be\'c6\'b0\'a8 \'c3\'a3\'be\'c6\'bc\'ad \'c4\'bf\'bc\'ad\'bf\'a1 \'b4\'e3\'be\'c6\'b3\'f0\par
+\tab -- \'b8\'de\'b8\'f0\'b8\'ae\'bf\'a1\'c0\'d6\'b4\'c2 \'b0\'aa\'c0\'bb \'c1\'b6\'c0\'db\'b8\'f8\'c7\'cf\'b4\'cf \'ba\'af\'bc\'f6\'bf\'a1 \'b7\'ce\'b5\'e5(fetch)\par
+\tab /* 3. fetch : \'c4\'bf\'bc\'ad\'bf\'a1 \'c0\'d6\'b4\'c2 active set \'b0\'e1\'b0\'fa\'b8\'a6 \'ba\'af\'bc\'f6\'bf\'a1 \'b7\'ce\'b5\'e5\'c7\'cf\'b4\'c2 \'b4\'dc\'b0\'e8 */\par
+\tab loop --\par
+\tab\tab fetch emp_cur into v_name; \par
+\b\tab\tab\tab exit when emp_cur%notfound;\par
+\b0\tab\tab\tab\tab dbms_output.put_line(v_name); \par
+\tab end loop;\par
+\tab /*4. \'c4\'bf\'bc\'ad close :\'b8\'de\'b8\'f0\'b8\'ae \'c7\'d8\'c1\'f6*/\par
+\tab close emp_cur;\par
+end;\par
+/\par
+-----------------------------------------\par
+declare \par
+      \par
+     cursor emp_cur is \par
+              select e.last_name,e.salary,d.department_name from employees e,departments d \par
+              where d.department_id = e.department_id\par
+              and d.department_id =20 ;\par
+     \par
+     v_rec emp_cur%rowtype; -- \'be\'cf\'bd\'c3\'c0\'fb \'c3\'b3\'b7\'b3 \'b7\'b9\'c4\'da\'b5\'e5 \'ba\'af\'bc\'f6 \'b8\'b8\'b5\'e9\'b6\'a7 \'c5\'d7\'c0\'cc\'ba\'ed \'c0\'cc\'b8\'a7 \'be\'b2\'b8\'e9 \'be\'c8\'b5\'c7\'b0\'ed \'c4\'bf\'bc\'ad \'c0\'cc\'b8\'a7\'c0\'bb \'be\'b2\'bd\'c3\'bf\'c0 \'c1\'b6\'c0\'ce\'b0\'b0\'c0\'ba\'b0\'c5 \'b0\'c9\'b8\'ae\'b8\'e9 \'b4\'e4\'c0\'cc \'be\'f8\'c0\'bd\par
+     \par
+     v_name varchar2(20);\par
+     v_sal number;\par
+begin \par
+      open emp_cur;\par
+      \par
+      loop\par
+      fetch emp_cur into v_rec ;\par
+      exit when emp_cur%notfound;-- \'bc\'d3\'bc\'ba (%)\par
+      dbms_output.put_line(v_rec.last_name||v_rec.salary); -- \'ba\'b0\'c4\'aa\'c0\'bb \'c7\'ca\'b5\'e5\'b8\'ed\'c0\'b8\'b7\'ce \'bb\'e7\'bf\'eb\'b0\'a1\'b4\'c9 \par
+      \par
+      end loop;\par
+      close emp_cur;\par
+end;\par
+/\par
+------\par
+fetch\'c7\'cf\'b0\'d4\'b5\'c7\'b8\'e9 \par
+cursor \'c4\'bf\'bc\'ad\'c0\'cc\'b8\'a7 is \'bc\'bf\'b7\'ba\'b9\'ae/ emp_cur\'c0\'cc \'c4\'bf\'bc\'ad\'c0\'cc\'b8\'a7\par
+\par
+fetch\'b0\'a1 \'b0\'aa\'c0\'cc \'bf\'a9\'b7\'af\'b0\'b3\'b8\'e9 \'b9\'dd\'ba\'b9\'c0\'db\'be\'f7\'c0\'b8\'b7\'ce \'c7\'d8\'c1\'e0\'be\'df\'c7\'cf\'b1\'e2 \'b6\'a7\'b9\'ae\'bf\'a1 loop\'b9\'ae \'be\'c8\'bf\'a1\'bc\'ad \'b5\'b9\'be\'c6\'b0\'a1\'c1\'e0\'be\'df\'c7\'d1\'b4\'d9.\par
+\'b8\'ed\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad \'bc\'d3\'bc\'ba\'c0\'cc\'b5\'ee\'c0\'e5\'c7\'d4\par
+\b\'b8\'ed\'bd\'c3\'c0\'fb \'c4\'bf\'bc\'ad\'c0\'c7 \'bc\'d3\'bc\'ba \b0\'b2\'c0 \'c0\'cc\'b8\'a7\'c0\'cc \'b5\'e9\'be\'ee\'b0\'a1\'be\'df\'c7\'d1\'b4\'d9. emp_cur%notfound;\par
+c.f) \'be\'cf\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad\'c0\'c7 \'bc\'d3\'bc\'ba\'c0\'ba dml\'bf\'a1\'bc\'ad \'bd\'e1\'be\'df\'c7\'d1\'b4\'d9 select\'bf\'a1\'bc\'ad\'bd\'e1\'ba\'c1\'be\'df \'c0\'c7\'b9\'cc\'be\'f8\'b4\'d9. fetch\'c7\'cf\'b4\'c2\'b0\'d4 \'be\'f8\'c0\'b8\'b8\'e9 \'b9\'ab\'c1\'b6\'b0\'c7\'bf\'c0\'b7\'f9\'b3\'aa\'b9\'c7\'b7\'ce \'c0\'cc\'b7\'b1 \'bc\'d3\'bc\'ba\'c0\'ba \b dml\'c0\'c7 \'b0\'e1\'b0\'fa\'b8\'a6 \'c6\'c7\'b4\'dc\'c7\'cf\'b4\'c2 \'b0\'e1\'b0\'fa\'b7\'ce \'be\'b2\'b6\'f3.\par
+\par
+\par
+\b0 declare\'bf\'a1\'bc\'ad \'bc\'bf\'b7\'ba\'b9\'ae \'bc\'b1\'be\'f0\'c0\'bb \'b8\'d5\'c0\'fa\'c7\'cf\'b0\'ed\par
+begin\'bf\'a1\'bc\'ad open fetch close\par
+\par
+\b\par
+\b0 declare\par
+\tab cursor emp_cur is \par
+\tab\tab select \b *\b0  \par
+\tab\tab from e.last_name, e.salary, d.department_name --\'be\'ea\'b3\'d7\'b0\'a1 \'b0\'a2\'b0\'a2 \'c7\'ca\'b5\'e5\'b0\'a1\'b5\'c7\'b4\'c2\'b0\'c5\'c0\'d3\par
+\tab\tab where e.department_id =20\par
+\tab\tab and d.department_id =20; \par
+\tab\b v_rec emp_cur%rowtype;\par
+\b0 begin\par
+\tab open emp_cur; -- \'c6\'c4\'bd\'ba\'bd\'c3\'bf\'a1\'b8\'b8\'b5\'e7 \'b0\'aa \'b5\'a5\'c0\'cc\'c5\'cd\'b9\'f6\'c6\'db\'c4\'b3\'bd\'c3\'bf\'a1\'c0\'d6\'b4\'c2\'c1\'f6 \'c3\'a3\'be\'c6\'b0\'a8 \'c3\'a3\'be\'c6\'bc\'ad \'c4\'bf\'bc\'ad\'bf\'a1 \'b4\'e3\'be\'c6\'b3\'f0\par
+\tab\tab\tab -- \'b8\'de\'b8\'f0\'b8\'ae\'bf\'a1\'c0\'d6\'b4\'c2 \'b0\'aa\'c0\'bb \'c1\'b6\'c0\'db\'b8\'f8\'c7\'cf\'b4\'cf \'ba\'af\'bc\'f6\'bf\'a1 \'b7\'ce\'b5\'e5(fetch)\par
+\tab loop\par
+\tab\tab fetch emp_cur into \b v_rec\b0 ;  --fetch\'bd\'c3\'c1\'a1\'bf\'a1 \'b7\'b9\'c4\'da\'b5\'e5\'ba\'af\'bc\'f6\'bf\'a1 \'c6\'e4\'c4\'a1\'bd\'c3\'c4\'d1\par
+\tab\tab\tab exit when \b emp_cur%notfound; \par
+\b0\tab\tab\tab\tab dbms_output.put_line\b (v_rec.last_name)\b0 ; \par
+\tab\tab\tab\tab dbms_output.put_line\b (v_rec.salary)\b0 ;\par
+\tab\tab\tab\tab dbms_output.put_line\b (v_rec.department_name)\b0 ;\par
+\tab end loop;\par
+\tab close emp_cur;\par
+end;\par
+/\par
+\par
+ e.last_name, e.salary, d.department_name \'c1\'b6\'c0\'db\'c7\'cf\'bf\'a9\'be\'b2\'b0\'ed\'bd\'cd\'c0\'bb\'b6\'a7 \'b7\'b9\'c4\'da\'b5\'e5\'ba\'af\'bc\'f6\'b8\'a6\'bb\'e7\'bf\'eb\'c7\'cf\'b0\'ed\'bd\'cd\'c0\'bd\par
+\'b7\'b9\'c4\'da\'b5\'e5\'ba\'af\'bc\'f6\'b8\'a6 \'bb\'e7\'bf\'eb\'c7\'d2\'b6\'a7\'bf\'a1\'b4\'c2 \'b9\'dd\'b5\'e5\'bd\'c3 \'c4\'bf\'bc\'ad\'c0\'cc\'b8\'a7\'c0\'bb \'bb\'e7\'bf\'eb\'c7\'d8\'c1\'e0\'be\'df\'c7\'d1\'b4\'d9.\par
+\'c5\'d7\'c0\'cc\'ba\'ed%rowtype;\'c7\'cf\'b8\'e9\'be\'c8\'b5\'c8\'b4\'d9.\par
+\'c4\'bf\'bc\'ad%rowtype\'c7\'d8\'be\'df\'c7\'d1\'b4\'d9.\par
+\par
+\par
+select *\par
+into \'b7\'b9\'c4\'da\'b5\'e5\'ba\'af\'bc\'f6\'bc\'b1\'be\'f0\par
+\'c0\'cc\'b7\'b8\'b0\'d4 \'c7\'d1\'b0\'cd\'c3\'b3\'b7\'b3 \'b8\'ed\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad \'c7\'d2\'b6\'a7\'b5\'b5 \'b7\'b9\'c4\'da\'b5\'e5\'ba\'af\'bc\'f6\'b8\'a6 \'bb\'e7\'bf\'eb\'c7\'cf\'b4\'c2\'b0\'cd\'c0\'cc \'b3\'aa\'bb\'da\'c1\'f6 \'be\'ca\'b4\'d9.\par
+\b\par
+\par
+\b0 declare\par
+\tab cursor emp_cur is \par
+\tab\tab select \b *\b0  \par
+\tab\tab from e.last_name, e.salary, d.department_name --\'be\'ea\'b3\'d7\'b0\'a1 \'b0\'a2\'b0\'a2 \'c7\'ca\'b5\'e5\'b0\'a1\'b5\'c7\'b4\'c2\'b0\'c5\'c0\'d3\par
+\tab\tab where e.department_id =20\par
+\tab\tab and d.department_id =20; \par
+\tab\b v_name varchar2(30);\par
+\tab v_sal number;\par
+\tab v_dept_name varchar2(30); --\'b7\'b9\'c4\'da\'b5\'e5\'ba\'af\'bc\'f6\'be\'b2\'b1\'e2\'bd\'c8\'c0\'b8\'b8\'e9 \'b0\'c1 \'bc\'f6\'c0\'db\'be\'f7 \'a4\'a1\'a4\'a1\'c7\'d8\'be\'df\'c7\'d4\par
+\b0 begin\par
+\tab open emp_cur; \par
+\tab loop\par
+\tab\tab fetch emp_cur into \b v_rec\b0 ;  \par
+\tab\tab\tab exit when \b emp_cur%notfound; \par
+\b0\tab\tab\tab\tab dbms_output.put_line\b (v_name)\b0 ; \par
+\tab\tab\tab\tab dbms_output.put_line\b (v_sal)\b0 ;\par
+\tab\tab\tab\tab dbms_output.put_line\b (v_dept_name)\b0 ;\par
+\tab end loop;\par
+\tab close emp_cur;\par
+end;\par
+/\par
+\b\par
+\par
+\par
+\b0\'bc\'b1\'be\'f0 \'bf\'c0\'c7\'c2 \'c6\'e4\'c4\'a1 \'c5\'ac\'b7\'ce\'c1\'ee\par
+\par
+\'b8\'de\'b8\'f0\'b8\'ae\'be\'c8\'c0\'c7 \'bf\'a2\'c6\'bc\'ba\'ea\'bc\'c2\'b0\'e1\'b0\'fa\'b4\'c2 \'c4\'bf\'bc\'ad\'bc\'b1\'be\'f0\'bd\'c3\'bf\'cd \'b4\'eb\'c0\'c0\'b5\'c7\'b4\'c2 \'bf\'a2\'bc\'bc\'bd\'ba\'bc\'c2\'c0\'cc \'b8\'b8\'b5\'e9\'be\'ee\'c1\'f8\'b4\'d9.\par
+\'ba\'af\'bc\'f6\'be\'c8\'bf\'a1 \'b7\'ce\'b5\'e5\'c0\'db\'be\'f7\'c0\'bb\'c7\'d8\'c1\'e0\'be\'df\'c7\'d1\'b4\'d9.\par
+\'b4\'eb\'c0\'c0\'b5\'c7\'b0\'d4 \'bc\'b1\'be\'f0\'c0\'bb \'c7\'d8\'be\'df\'c7\'cf\'b4\'c2\'b5\'a5  \'bc\'bf\'b7\'ba\'c6\'ae\'b0\'b9\'bc\'f6\'c0\'c7 \'c4\'c3\'b7\'b3\'b0\'b9\'bc\'f6\'b0\'a1 \'be\'f6\'c3\'bb\'b8\'b9\'c0\'ba\'b5\'a5 \'b4\'eb\'c0\'c0\'b5\'c7\'b0\'d4 \'bd\'ba\'c4\'ae\'b6\'f3\'c5\'b8\'c0\'d4 \'bc\'f6\'c0\'db\'be\'f7\'c8\'fb\'b5\'e5\'b9\'c7\'b7\'ce\par
+\'b7\'b9\'c4\'da\'b5\'e5\'c5\'b8\'c0\'d4\'c0\'bb \'b8\'b8\'b5\'e9\'be\'ee\'bc\'ad \'bb\'e7\'bf\'eb\'c7\'cf\'c0\'da. type \'c5\'b8\'c0\'d4\'c0\'cc\'b8\'a7 is ...\'b5\'b5\'ba\'d2\'c6\'ed\par
+->%rowtype\'bb\'e7\'bf\'eb\'c7\'cf\'c0\'da.\par
+->\'c4\'bf\'bc\'ad\'b8\'a6 \'b1\'e2\'b9\'dd\'c0\'b8\'b7\'ce\'c7\'cf\'b4\'c2 \'b7\'b9\'c4\'da\'b5\'e5\'c5\'b8\'c0\'d4\'c0\'bb \'b8\'b8\'b5\'e9\'c0\'da. v_rec emp_cur%rowtype;\par
+\'c4\'c3\'b7\'b3\'c0\'cc\'b8\'a7\'c0\'cc \'c7\'ca\'b5\'e5\'b8\'ed\'c0\'cc\'b5\'ca, \'ba\'b0\'c4\'aa\'c0\'d6\'c0\'b8\'b8\'e9 \'ba\'b0\'c4\'aa\'c0\'cc \'c7\'ca\'b5\'e5\'b8\'ed\'c0\'cc\'b5\'ca\par
+\par
+\'ba\'d0\'bc\'ae\'c2\'ca\'bf\'a1\'bc\'ad plsql\'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a5 \'b8\'b9\'c0\'cc \'ba\'b8\'b0\'ed \'c7\'da\'b5\'e9\'b8\'b5\'c7\'cf\'b0\'d4\'b5\'c8\'b4\'d9.\par
+\par
+\par
+\par
+\b\fs24\'b8\'ed\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad\'b8\'a6 \'bd\'b1\'b0\'d4 \'b1\'b8\'c7\'f6\'c7\'cf\'b4\'c2 \'b9\'e6\'b9\'fd\par
+\b0\fs20 declare\par
+\tab cursor emp_cur is\par
+\tab\tab select * from employees where department_id = 20; \par
+begin\par
+\tab for emp_rec in emp_cur loop\par
+\tab\tab dbms_output.put_line(emp_rec.last_name);\par
+\tab end loop;\par
+end;\par
+/\par
+--\'bc\'b1\'be\'f0\'c0\'ba \'b6\'c8\'b0\'b0\'c0\'bd\par
+begin\'c0\'cc \'b4\'d9\'b8\'a7\par
+in\'b5\'da\'bf\'a1\'b4\'c2 \'b2\'c0 \'c4\'bf\'bc\'ad\'c0\'cc\'b8\'a7\'c0\'bb\'bd\'e1\'c1\'e0\'be\'df\'c7\'d4\par
+\'b8\'ed\'bd\'c3\'c0\'fb \'c4\'bf\'bc\'ad\'bf\'a1\'bc\'ad for\'b9\'ae\'c0\'bb\'c0\'cc\'bf\'eb\'c7\'cf\'b8\'e9 \'c6\'ed\'c7\'cf\'b4\'d9\par
+1.\'b7\'b9\'c4\'da\'b5\'e5 \'ba\'af\'bc\'f6 \'c0\'da\'b5\'bf\'c0\'b8\'b7\'ce\'b8\'b8\'b5\'e9\'be\'ee\'c1\'f8\'b4\'d9.\par
+\'b7\'b9\'c4\'da\'b5\'e5\'ba\'af\'bc\'f6\'b0\'a1 for\'b9\'ae\'c0\'bb \'c5\'eb\'c7\'d8 \'c4\'bf\'bc\'ad\'b8\'a6 \'b1\'e2\'b9\'dd\'c0\'b8\'b7\'ce \'c0\'da\'b5\'bf\'c0\'b8\'b7\'ce \'b8\'b8\'b5\'e9\'be\'ee\'c1\'f8\'b4\'d9.\'c4\'bf\'bc\'ad\'b8\'a6 \'b1\'e2\'b9\'dd\'c0\'b8\'b7\'ce \'b7\'b9\'c4\'da\'b5\'e5\'ba\'af\'bc\'f6\'b8\'a6 \'be\'cf\'bd\'c3\'c0\'fb\'c0\'b8\'b7\'ce \'bd\'e1~!\par
+2. open fetch\'b0\'a1 \'c0\'da\'b5\'bf\'c0\'b8\'b7\'ce \'c0\'cc\'b7\'e7\'be\'ee\'c1\'f8\'b4\'d9. \'be\'ee\'c2\'f7\'c7\'c7 \'c6\'e4\'c4\'a1\'b4\'c2 \'b7\'e7\'c7\'c1\'bf\'a1\'bc\'ad \'b5\'b9\'b8\'b2\par
+in\'b5\'da\'bf\'a1\'b4\'c2 \'c4\'bf\'bc\'ad\'c0\'cc\'b8\'a7 -\'c4\'bf\'bc\'ad\'b8\'a6 \'b1\'e2\'b9\'dd\'c0\'b8\'b7\'ce\par
+\par
+emp_rec = i \'c3\'b3\'b7\'b3 \'c0\'da\'b5\'bf\'c0\'b8\'b7\'ce \'b8\'b8\'b5\'e9\'be\'ee\'c1\'fc , in emp_cur \'c4\'bf\'bc\'ad \'c0\'cc\'b8\'a7 \'b3\'d6\'c0\'b8\'b8\'e9 \'be\'cb\'be\'c6\'bc\'ad \'b1\'e2\'b0\'a3 , open fetch close \'c0\'da\'b5\'bf \'b8\'b8\'be\'e0  emp_rec\'b8\'a6 \'ba\'f1\'b1\'e4\'c0\'fd \'b4\'d9\'b8\'a5\'b0\'f7\'bf\'a1\'bc\'ad\'b5\'b5 \'be\'b2\'b0\'ed \'bd\'cd\'c0\'b8\'b8\'e9 \'b8\'c5\'b4\'ba\'be\'f3\'b4\'eb\'b7\'ce \'c7\'cf\'b5\'e7\'b0\'a1\par
+\par
+\par
+\'b7\'b9\'c4\'da\'b5\'e5\'ba\'af\'bc\'f6 \'b8\'a6 \'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a5\'bf\'a1\'bc\'ad\'b8\'b8 \'be\'b2\'b0\'ed \'c6\'d0\'c4\'a1\'b5\'c8\'b0\'e1\'b0\'fa\'b8\'b8 \'c7\'ca\'bf\'e4\'c7\'d2\'b6\'a9 \'c0\'cc\'b7\'b8\'b0\'d4 \'be\'b2\'b8\'e9\'b5\'ca\par
+\'b8\'b8\'be\'e0 \'c0\'fc\'c3\'bc \'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a5\'bf\'a1\'bc\'ad \'b7\'b9\'c4\'da\'b5\'e5\'ba\'af\'bc\'f6\'b0\'a1 \'c7\'ca\'bf\'e4\'c7\'cf\'b8\'e9  \'b8\'c5\'b4\'ba\'be\'f3\'c7\'cf\'b0\'d4 \'c0\'a7\'c2\'ca\'b9\'e6\'b9\'fd\'c0\'bb \'bb\'e7\'bf\'eb\'c7\'d8\'be\'df\'c7\'d1\'b4\'d9.\par
+\'bf\'a2\'c6\'bc\'ba\'ea\'bc\'c2 \'b0\'e1\'b0\'fa\'b0\'a1 \'c0\'d6\'be\'ee\'be\'df\'b8\'b8 \'c0\'cc for loop\'b1\'b8\'c1\'b6\'b4\'c2 \'b5\'b9\'be\'c6\'b0\'a5 \'bc\'f6 \'c0\'d5\'b4\'d9. \'bf\'a2\'c6\'bc\'ba\'ea\'bc\'c2\'b0\'e1\'b0\'fa\'be\'f8\'c0\'b8\'b8\'e9 \'b1\'d7\'b3\'c9\'b3\'a1\'b3\'aa\'b9\'f6\'b8\'b2\par
+\'b5\'d1\'b4\'d9 \'be\'cb\'be\'c6\'b5\'d6\'be\'df\'c7\'d1\'b4\'d9.\par
+\par
+\par
+[\'b9\'ae\'c1\'a629] \'bb\'e7\'bf\'f8\'c0\'c7 last_name \'b0\'aa\'c0\'bb \'c0\'d4\'b7\'c2 \'b9\'de\'be\'c6\'bc\'ad \'b1\'d7 \'bb\'e7\'bf\'f8\'c0\'c7 employee_id, last_name, department_name \'c3\'e2\'b7\'c2\'c7\'cf\'b0\'ed \par
+\'b8\'b8\'be\'e0\'c0\'c7 \'be\'f8\'b4\'c2 last_name\'c0\'bb \'c0\'d4\'b7\'c2 \'c7\'d2\'b0\'e6\'bf\'ec\'bf\'a1\'b4\'c2  "Hong \'c0\'cc\'b6\'f3\'b4\'c2 \'bb\'e7\'bf\'f8\'c0\'ba \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6 \'be\'ca\'bd\'c0\'b4\'cf\'b4\'d9."  \'c3\'e2\'b7\'c2 \'c7\'cf\'b4\'c2 \'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a5\'c0\'bb \'b8\'b8 \'b5\'e5\'bc\'bc\'bf\'e4.\par
+\par
+\par
+\'c0\'d4\'b7\'c2\'b0\'aa : king\par
+\par
+Employee Id = 156 Name = King Department Name = Sales\par
+Employee Id = 100 Name = King Department Name = Executive\par
+\par
+\par
+\par
+\'c0\'d4\'b7\'c2\'b0\'aa : hong\par
+\par
+Hong \'c0\'cc\'b6\'f3\'b4\'c2 \'bb\'e7\'bf\'f8\'c0\'ba \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6 \'be\'ca\'bd\'c0\'b4\'cf\'b4\'d9.\par
+\par
+\par
+\par
+\par
+select e.employee_id, e.last_name, d.department_name\par
+from employees e, departments d\par
+where e.department_id =d.department_id\par
+and last_name = \'ba\'af\'bc\'f6;\par
+\par
+\'bf\'a9\'b7\'af\'c7\'e0\'c0\'c7\'b0\'aa\'c0\'bb \'c3\'b3\'b8\'ae \'b8\'ed\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad\par
+\'c4\'bf\'bc\'ad\'bc\'b1\'be\'f0\'bd\'c3\'bf\'a1 \'b9\'d9\'c0\'ce\'b5\'e5\'ba\'af\'bc\'f6 \'bb\'e7\'bf\'eb\'b0\'a1\'b4\'c9\par
+\'bf\'a2\'c6\'bc\'ba\'ea \'bc\'c2\'b0\'e1\'b0\'fa \'be\'f8\'c0\'bb\'b6\'a7\'b4\'c2 \par
+\par
+\'be\'cf\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad\'c0\'c7 select..into..\'c0\'fd\'c0\'ba \'b9\'dd\'b5\'e5\'bd\'c3 \'c7\'d1\'b0\'b3\'b7\'ce\'b8\'b8 fetch 0\'b0\'c7- no data found 1\'b0\'b3\'c3\'ca\'b0\'fa -too many rows\par
+\'c0\'cc\'b0\'c9\'c7\'d8\'b0\'e1\'c7\'d1\'b0\'d4 \par
+\'b8\'ed\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad -\'be\'f8\'be\'ee\'b5\'b5\'bf\'c0\'b7\'f9\'b3\'aa\'bf\'c0\'c1\'f6\'be\'ca\'c0\'bd\par
+\par
+\par
+\par
+\par
+[\'b9\'ae\'c1\'a629] \'bb\'e7\'bf\'f8\'c0\'c7 last_name \'b0\'aa\'c0\'bb \'c0\'d4\'b7\'c2 \'b9\'de\'be\'c6\'bc\'ad \'b1\'d7 \'bb\'e7\'bf\'f8\'c0\'c7 employee_id, last_name, department_name \'c3\'e2\'b7\'c2\'c7\'cf\'b0\'ed \par
+\'b8\'b8\'be\'e0\'c0\'c7 \'be\'f8\'b4\'c2 last_name\'c0\'bb \'c0\'d4\'b7\'c2 \'c7\'d2\'b0\'e6\'bf\'ec\'bf\'a1\'b4\'c2  "Hong \'c0\'cc\'b6\'f3\'b4\'c2 \'bb\'e7\'bf\'f8\'c0\'ba \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6 \'be\'ca\'bd\'c0\'b4\'cf\'b4\'d9."  \'c3\'e2\'b7\'c2 \'c7\'cf\'b4\'c2 \'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a5\'c0\'bb \'b8\'b8 \'b5\'e5\'bc\'bc\'bf\'e4.\par
+\par
+\'c0\'d4\'b7\'c2\'b0\'aa : king\par
+\par
+Employee Id = 156 Name = King Department Name = Sales\par
+Employee Id = 100 Name = King Department Name = Executive\par
+\par
+\par
+\par
+\'c0\'d4\'b7\'c2\'b0\'aa : hong\par
+\par
+Hong  \'c0\'cc\'b6\'f3\'b4\'c2 \'bb\'e7\'bf\'f8\'c0\'ba \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6 \'be\'ca\'bd\'c0\'b4\'cf\'b4\'d9.\par
+\par
+\par
+SELECT e.employee_id, e.last_name, d.department_name \par
+FROM employees e, departments d\par
+WHERE e.department_id = d.department_id\par
+AND e.last_name = initcap('king');\par
+\par
+SELECT e.employee_id, e.last_name, d.department_name \par
+FROM employees e, departments d\par
+WHERE e.department_id = d.department_id\par
+AND e.last_name = initcap('hong');\par
+\par
+\par
+var b_name varchar2(10)\par
+\par
+execute :b_name := 'king'\par
+\par
+execute :b_name := 'hong'\par
+\par
+DECLARE\par
+\par
+ CURSOR c1 IS \par
+\tab SELECT e.employee_id, e.last_name, d.department_name\par
+\tab FROM employees e, departments d\par
+        WHERE e.department_id = d.department_id\par
+        AND e.last_name = initcap(:b_name);\par
+BEGIN\par
+  FOR v_rec IN c1 LOOP\par
+  IF c1%NOTFOUND THEN --\'be\'b5\'b5\'a5\'be\'f8\'b4\'c2 \'b7\'ce\'c1\'f7 \'be\'c6\'bf\'a1\'be\'c8\'c5\'bd\par
+\tab DBMS_OUTPUT.PUT_LINE(:b_name || '  \'c0\'cc\'b6\'f3\'b4\'c2 \'bb\'e7\'bf\'f8\'c0\'ba \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6 \'be\'ca\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+  ELSE\par
+   DBMS_OUTPUT.PUT_LINE('Employee Id = ' || v_rec.employee_id \par
+                      ||' Name = ' || v_rec.last_name \par
+\tab\tab       ||' Department Name = '||v_rec.department_name);\par
+  END IF;\par
+ END LOOP;\par
+END;\par
+/\par
+\par
+for\'b9\'ae\'c0\'bb \'be\'b5\'b6\'a7 \'c6\'e4\'c4\'a1\'c7\'d1\'b0\'b3\'be\'f8\'c0\'b8\'b8\'e9 \'b9\'d9\'b7\'ce \'ba\'fc\'c1\'ae\'b3\'aa\'bf\'c8, \'c0\'df\'b8\'f8\'b8\'b8\'b5\'e7 \'b0\'cd\par
+for\'b9\'ae\'c0\'bb \'be\'b5 \'b6\'a7\'b4\'c2 \'c6\'e4\'c4\'a1\'b5\'c7\'b8\'e9 \'b7\'e7\'c7\'c1\'bc\'f6\'c7\'e0\'c7\'cf\'b0\'ed fetch\'be\'c8\'b5\'c7\'b8\'e9 \'b9\'d9\'b7\'ce end loop\'b7\'ce \'ba\'fc\'c1\'ae\'b3\'aa\'bf\'c8 \par
+\par
+-----------------------------------------------------------------------------------\par
+\par
+DECLARE\par
+\par
+ CURSOR c1 IS \par
+\tab SELECT e.employee_id, e.last_name, d.department_name\par
+\tab FROM employees e, departments d\par
+        WHERE e.department_id = d.department_id\par
+        AND e.last_name = initcap(:b_name);\par
+ \par
+  v_c number := 0;\par
+\par
+BEGIN\par
+  FOR v_rec IN c1 LOOP --\'c4\'bf\'bc\'ad\'b8\'a6\'b1\'e2\'b9\'dd\'c0\'b8\'b7\'ce \'b7\'b9\'c4\'da\'b5\'e5 \'b8\'b8\'b5\'e9\'be\'ee\par
+ \par
+   DBMS_OUTPUT.PUT_LINE('Employee Id = ' || v_rec.employee_id \par
+                      ||' Name = ' || v_rec.last_name \par
+\tab\tab       ||' Department Name = '||v_rec.department_name);\par
+\par
+   v_c := c1%rowcount; --\'c7\'f6\'c0\'e7 \'c6\'e4\'c4\'a1\'c7\'d1 \'b0\'c7\'bc\'f6 \par
+   \par
+ END LOOP;\par
+    \par
+  IF v_c = 0 THEN  --\par
+      DBMS_OUTPUT.PUT_LINE(initcap(:b_name) ||' \'c0\'cc\'b6\'f3\'b4\'c2 \'bb\'e7\'bf\'f8\'c0\'ba \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6 \'be\'ca\'bd\'c0\'b4\'cf\'b4\'d9.'); \par
+  ELSE\par
+      DBMS_OUTPUT.PUT_LINE(initcap(:b_name) ||' \'c0\'cc\'b6\'f3\'b4\'c2 \'bb\'e7\'bf\'f8\'c0\'ba '|| v_c ||' \'b8\'ed \'c0\'d4\'b4\'cf\'b4\'d9.');\par
+  END IF;\par
+\par
+END;\par
+/\par
+\par
+\'b9\'d9\'b1\'f9\'c2\'ca\'bf\'a1\'bc\'ad \'b7\'ce\'c1\'f7\'b1\'b8\'c7\'f6\'c7\'df\'c0\'bd\par
+\par
+\'bf\'a2\'c6\'bc\'ba\'ea \'bc\'c2\'b0\'e1\'b0\'fa\'b0\'a1 \'be\'f8\'b0\'c5\'b3\'aa \'c6\'e4\'c4\'a1\'b0\'a1 \'be\'f8\'b4\'d9\'b8\'e9 end loop\'b7\'ce\'b3\'a1\'b3\'aa\'b8\'e9\'bc\'ad \'b9\'d9\'b7\'ce\'b3\'a1\'b3\'aa\'b1\'e2 \'b6\'a7\'b9\'ae\'bf\'a1 \'c6\'e4\'c4\'a1\'b0\'c7\'c0\'bb \'bb\'e7\'bf\'eb\'c7\'cf\'b7\'c1\'b8\'e9 \'b9\'d9\'c0\'ce\'b5\'e5\'ba\'af\'bc\'f6\'b7\'ce  for\'b9\'ae \'b9\'db\'bf\'a1\'bc\'ad \'bb\'e7\'bf\'eb\'c7\'d2 \'bc\'f6 \'c0\'d6\'b0\'d4\'c7\'d8\'be\'df\'c7\'d1\'b4\'d9. for\'b9\'ae\'c0\'cc \'b3\'a1\'b3\'aa\'b8\'e9 \'b1\'d7 \'c4\'bf\'bc\'ad\'b4\'c2 \'bf\'c0\'b7\'f9\'b3\'ad\'b4\'d9.\par
+---------------------------------------------------------------------------------------\par
+\'b8\'de\'b4\'ba\'be\'f3\'c7\'cf\'b0\'d4 \'bc\'f6\'b5\'bf\'c0\'b8\'b7\'ce~\par
+\par
+\par
+DECLARE\par
+ \par
+ CURSOR c1 IS\par
+\tab SELECT e.employee_id, e.last_name, d.department_name \par
+\tab FROM employees e, departments d\par
+        WHERE e.department_id = d.department_id\par
+        AND e.last_name = initcap(:b_name);\par
+\par
+ v_rec c1%rowtype;\par
+\par
+BEGIN\par
+  OPEN c1;\par
+  \par
+ LOOP\par
+  FETCH c1 INTO v_rec;\par
+\tab\par
+  \tab IF c1%rowcount = 0  THEN \par
+\tab\tab DBMS_OUTPUT.PUT_LINE(:b_name || '  \'c0\'cc\'b6\'f3\'b4\'c2 \'bb\'e7\'bf\'f8\'c0\'ba \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6 \'be\'ca\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+                EXIT;\par
+        ELSIF c1%notfound THEN\par
+\tab\tab EXIT;\par
+  \tab END IF;\par
+\par
+   \tab\tab DBMS_OUTPUT.PUT_LINE('Employee Id = ' || v_rec.employee_id \par
+                      ||' Name = ' || v_rec.last_name \par
+\tab\tab       ||' Department Name = '||v_rec.department_name);\par
+  \tab\tab\par
+  END LOOP;\par
+\par
+  \par
+  CLOSE c1;\par
+\par
+END;\par
+/\par
+\par
+\par
+\par
+PLSQL\'c4\'f5\'b8\'ae\'b9\'ae\'c0\'e5\'c0\'c7 \'b0\'e1\'b0\'fa\'b0\'a1 \'c7\'d1\'b0\'b3\'c0\'cc\'bb\'f3->\'b9\'ab\'c1\'b6\'b0\'c7\'b8\'ed\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad\par
+\'bc\'b1\'be\'f0\'bf\'c0\'c7\'c2\'c6\'e4\'c4\'a1\'c5\'ac\'b7\'ce\'c1\'ee VS FOR\'b9\'ae \par
+\par
+\'bf\'a2\'c6\'bc\'ba\'ea\'bc\'c2\'b0\'e1\'b0\'fa\'b0\'a1 \'be\'f8\'b4\'d9\'b8\'e9 \'c7\'d2\'bc\'f6\'be\'f8\'c0\'cc \'c6\'d0\'c4\'a1\'c7\'d1 \'b0\'c7\'bc\'f6\'b6\'f3\'b5\'b5 \'ba\'af\'bc\'f6\'bf\'a1\'b4\'e3\'be\'c6\'b5\'ce\'b0\'ed \'b0\'c7\'bc\'f6\'b0\'a1 0\'b4\'d9 \'c7\'cf\'b8\'e9\'be\'f8\'b4\'c2\'b0\'c5\par
+\'c0\'cc\'b0\'d4\'bd\'c8\'c0\'bd \par
+\'b1\'e2\'ba\'bb\'b7\'e7\'c7\'c1\'b1\'b8\'c1\'b6\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\par
+\b\par
+\par
+\par
+\par
+\par
+\par
+\par
+}
+ 

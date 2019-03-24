@@ -1,0 +1,84 @@
+merge
+
+create table oltp_emp
+as 
+select employee_id, last_name, salary, department_id
+from employees;
+
+create table dw_emp
+as
+select employee_id, last_name, salary, department_id
+from employees
+where department_id = 20;
+
+select * from oltp_emp;
+select * from dw_emp;
+
+alter table oltp_emp add flag char(1);
+
+update oltp_emp
+set flag = 'd'
+where employee_id = 202;
+
+update oltp_emp
+set salary = 20000
+where employee_id = 201;
+
+commit;
+
+merge into dw_emp d
+using oltp_emp o
+on (d.employee_id = o.employee_id)
+when matched then
+	update set
+		d.last_name = o.last_name,
+		d.salary = o.salary * 1.1,
+		d.department_id = o.department_id
+	delete where o.flag = 'd'
+when not matched then
+     insert(d.employee_id,d.last_name,d.salary,d.department_id)
+     values(o.employee_id,o.last_name,o.salary,o.department_id);
+
+select * from dw_emp where employee_id in (201,202);
+select * from oltp_emp where employee_id in (201,202);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

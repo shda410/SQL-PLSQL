@@ -1,0 +1,107 @@
+SQL> conn sys/oracle as sysdba (connect SYS계정 / 비밀번호 as SYS-DBA)
+
+SQL> show user (user 확인 일반적 SYS가 아님)
+
+SQL> conn hr/hr (hr 수정)
+
+SQL> conn sys/oracle as sysdba (다시 접속) 
+
+SQL> alter user hr identified by hr account unlock; (alter 명령을 통한 hr 비밀번호 풀어놓는다)
+
+SQL> conn hr/hr (hr 접속)
+
+SQL> Select * from tab; 
+
+SQL> Select * from employees; (employees 테이블)
+
+
+
+보기 어려우므로 oracle SQL developer 로 접속한다.
+
+
+
+사원번호 이름 부서 직급 주민번호 주소 전화번호 이메일 
+
+
+
+
+
+oracle db 안에 data를 저장하는 단계
+
+
+
+예시
+
+
+
+DB - 나라
+
+
+
+TableSpace - 지역
+
+
+
+Segment(table, object) - 실제 데이터 저장
+
+
+
+Extent
+
+
+
+Block(최소 i/o<input/output> 단위) = page
+
+
+
+block의 크기는 2k,4k,8k,16k,32k
+
+
+
+full table scan (처음부터 끝까지 search)
+
+unipue scan 
+
+range scan
+
+
+<select문 기능 >
+1.projection:테이블에 열단위로 추출
+desc employees  				employees안에 어떤 컬럼들이 있는지 확인 = dsc employees
+select employee_id from employees;             	id
+select employee_id,last_ from employees;       	id랑 last 컴마로 추가해줌
+
+
+2.selection:테이블에 행을 추출
+select *
+from employees
+where employee_id=100;				where절의 employee테이블의 row만 뽑아줘(?)
+
+select절 컬럼을 지정
+from절 테이블 지정
+where절은 행을 제한하는 절
+
+
+3.join: 서로 다른 테이블에서 내가 원하는 데이터를 한번에 추출하는 방법, (정규화를 위해서 조각을 낸 테이블들 덕분에 이게 필요.)
+
+desc departments				툴명령어이기 때문에 세미콜론 안씀
+
+100번사원의 부서이름을 알려줘
+select department_id
+from employees
+where employee_id=100;	
+
+select department_name
+from departments
+where department_id=90;
+100번사원의 사원번호 찾아서 다시 부서테이블로 찾아갔음
+
+이두개를 한꺼번에 하고싶어
+f10키누르면 실행계획이나옴(튜닝때이런공부할거임) 씨피유를통해 통계를 이용하여 만듬. dbms입장에서 비효율적
+,성능이 나빠질 수있음
+
+-> join사용
+select d.department_name
+from employees e, departments d
+where e.department_id=d.department_id and e.employee_id=100;
+

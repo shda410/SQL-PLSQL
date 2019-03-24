@@ -1,0 +1,543 @@
+{\rtf1\ansi\deff0{\fonttbl{\f0\fnil\fcharset129 \'b8\'bc\'c0\'ba \'b0\'ed\'b5\'f1;}}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sl240\slmult1\lang18\f0\fs20 [\'b9\'ae\'c1\'a66]\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3\'b8\'a6 \'c0\'d4\'b7\'c2\'b0\'aa\'c0\'b8\'b7\'ce \'b9\'de\'be\'c6\'bc\'ad \'b1\'d7 \'bb\'e7\'bf\'f8\'c0\'c7 \'b1\'de\'bf\'a9\'b8\'a6 10%\'c0\'ce\'bb\'f3\'c7\'cf\'b4\'c2 \'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a5\'c0\'bb \'bc\'f6\'c7\'e0\'c7\'cf\'bc\'bc\'bf\'e4.\par
+\'c8\'ad\'b8\'e9\'c0\'c7 \'c3\'e2\'b7\'c2\'b5\'c7\'b4\'c2 \'b0\'e1\'b0\'fa\'b4\'c2 \'bc\'f6\'c1\'a4 \'c0\'fc \'bf\'f9\'b1\'de\'b0\'fa \'bc\'f6\'c1\'a4 \'c8\'c4 \'bf\'f9\'b1\'de\'c0\'cc \'be\'c6\'b7\'a1\'bf\'cd \'b0\'b0\'c0\'cc \'c3\'e2\'b7\'c2 \'c8\'c4 transaction\'c0\'ba rollback \'c7\'cf\'bc\'bc\'bf\'e4.\par
+(\'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3\'b8\'a6 \'c0\'d4\'b7\'c2\'b0\'aa\'c0\'b8\'b7\'ce\'b9\'de\'be\'c6\'bc\'ad \'be\'f7\'b5\'a5\'c0\'cc\'c6\'ae)\par
+\par
+var b_id number\par
+\par
+execute :b_id := 100\par
+\par
+\par
+\'bc\'f6\'c1\'a4 \'c0\'fc \'bf\'f9\'b1\'de : 24000\par
+\'bc\'f6\'c1\'a4 \'c8\'c4 \'bf\'f9\'b1\'de : 26400\par
+\par
+\par
+\par
+SQL> drop table emp purge;\par
+\par
+Table dropped.\par
+\par
+SQL> create table emp as select * from employees;\par
+\par
+Table created.\par
+\par
+\par
+-------------\par
+declare\par
+\par
+\tab v_sal      emp.salary%type;\par
+\tab\par
+begin \par
+\tab select salary into v_sal\par
+\tab from emp\par
+\tab where employee_id = :b_id;\par
+\tab\par
+\tab dbms_output.put_line('\'bc\'f6\'c1\'a4 \'c0\'fc \'bf\'f9\'b1\'de : '||v_sal);\par
+\par
+\tab update emp\par
+\tab set salary = salary * 1.1\par
+\tab where employee_id = :b_id;\par
+\par
+\tab select salary into v_sal\par
+\tab from emp\par
+\tab where employee_id = :b_id;\par
+\par
+  \tab\par
+  \tab dbms_output.put_line('\'bc\'f6\'c1\'a4 \'c8\'c4 \'bf\'f9\'b1\'de : '||v_sal);\par
+  \par
+  \tab rollback;\par
+end;\par
+/\par
+\b --dml\'bf\'a1\'b4\'eb\'c7\'d1\'b0\'e1\'b0\'fa\'b8\'a6 \'c8\'ae\'c0\'ce\'c7\'d8\'be\'df\'c7\'d1\'b4\'d9->select\'b9\'ae\'c0\'e5\'c0\'bb \'b4\'f8\'c1\'fa\'bc\'f6\'b9\'db\'bf\'a1\'be\'f8\'c0\'bd(dml\'c0\'ba fetch\'b4\'dc\'b0\'e8\'b0\'a1 \'be\'f8\'b1\'e2 \'b6\'a7\'b9\'ae\'bf\'a1)\par
+--\'b9\'ae\'c1\'a6\'c1\'a1: employee_id\'b4\'c2 \'c0\'af\'b4\'d0\'bd\'ba\'c0\'ce\'b5\'a6\'bd\'ba\'c0\'d6\'c2\'ee\'b8\'b8 emp\'b4\'c2 \'c0\'ce\'b5\'a6\'bd\'ba \'be\'f8\'b1\'e2 \'b6\'a7\'b9\'ae\'bf\'a1 fullscan 3\'b9\'f8 \'b9\'df\'bb\'fd \par
+--\'c5\'d7\'c0\'cc\'ba\'ed \'b5\'f0\'c0\'da\'c0\'ce\'c0\'bb \'c7\'df\'c0\'bb \'b6\'a7 \'c1\'b6\'c8\'b8\'bd\'c3\'c1\'a1\'bf\'a1 \'b8\'b9\'c0\'cc \'bd\'e1\'c0\'d6\'be\'ee\'be\'df\'c7\'cf\'b9\'c7\'b7\'ce emp\'c0\'c7 employee_id\'bf\'a1 \'c0\'ce\'b5\'a6\'bd\'ba\'b8\'a6 \'b0\'c9\'be\'ee\'be\'df\'c7\'d4\b0\par
+\b  --sql\'bf\'a1\'bc\'ad\'b4\'c2 \'bc\'f6\'c1\'a4 delete \'c7\'cf\'b0\'ed \'b1\'d7\'b0\'aa\'c0\'bb \'ba\'b8\'b0\'ed\'bd\'cd\'be\'ee\'b5\'b5 \'ba\'bc\'bc\'f6 \'be\'f8\'b4\'d9.plsql\'bf\'a1\'bc\'ad\'b8\'b8\'b0\'a1\'b4\'c9\par
+--returning\'c0\'cc\'b6\'f3\'b4\'c2 \'c0\'fd dml\'bf\'a1 fetch\'b8\'a6 \'c7\'d2 \'bc\'f6 \'c0\'d6\'b4\'c2 \'c0\'fd \par
+\b0       \par
+select \'b9\'ae\'c0\'e5\'c0\'cc \'b8\'c5\'b9\'f8 \'c6\'c4\'bd\'ba \'b9\'d9\'c0\'ce\'b5\'e5 \'c0\'cd\'bd\'ba\'c5\'a5\'c6\'ae \'c6\'e4\'c4\'a1 \'b5\'c7\'b4\'c2\'b5\'a5 \'c0\'cc\'b0\'c9 \'c7\'d1\'b9\'f8\'bf\'a1\'c7\'d5\'c4\'a1\'c0\'da\'b4\'c2 \'b0\'b3\'b3\'e4\'c0\'cc returning\'c0\'cc\'b6\'f3\'b4\'c2 \'c0\'fd\par
+(\'bf\'c0\'b6\'f3\'c5\'ac 8\'b9\'f6\'c0\'fc\'ba\'ce\'c5\'cd \'b5\'ee\'c0\'e5)    \par
+\par
+returning \'c4\'c3\'b7\'b3 into \'ba\'af\'bc\'f6;\par
+\'ba\'b8\'b0\'ed\'c0\'da\'c7\'cf\'b4\'c2 \'c7\'ca\'b5\'e5\'b0\'aa\'c0\'cc \'b5\'e9\'be\'ee\'b0\'a1\'c0\'d6\'b4\'c2 \'c4\'c3\'b7\'b3\'c0\'cc\'b8\'a7 \'b3\'aa\'bf\'ad\par
+\'c1\'d6\'c0\'c7\'c7\'d2\'c1\'a1: \'be\'cf\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad\'c0\'c7 select into\'c0\'fd\'c0\'ba \'c7\'d1\'b0\'b3\'c0\'c7 \'b7\'ce\'bf\'ec\'b8\'b8 fetch\par
+\par
+\par
+var b_id number\par
+execute :b_id := 100\par
+declare\par
+        v_sal    emp.salary%type;\par
+begin\par
+      select salary \par
+      into v_sal\par
+      from emp\par
+      where employee_id = :b_id;\par
+      dbms_output.out_put('\'bc\'f6\'c1\'a4 \'c0\'fc \'bf\'f9\'b1\'de: '||v_sal);\par
+      update emp\par
+      set salary =salary *1.1\par
+      where employee_id =:b_id;\par
+      \par
+      select salary\par
+      into v_sal\par
+      where employee_id = :b_id;\par
+\b       returning salary into v_sal;     \par
+\b0       dbms_output.out_put('\'bc\'f6\'c1\'a4 \'c8\'c4 \'bf\'f9\'b1\'de: '||v_sal)\par
+      \par
+\par
+      rollback;\par
+      \par
+end;\par
+/\par
+--\'bb\'e8\'c1\'a6\'c7\'d1 \'b0\'aa\'c0\'bb \'b9\'d8\'bf\'a1\'bc\'ad \'bc\'bf\'b7\'ba\'c7\'cf\'b8\'e9 null\'b0\'aa\'b9\'db\'bf\'a1 \'c1\'b8\'c0\'e7\'c7\'cf\'c1\'f6\'be\'ca\'c0\'bd\par
+returning\'c0\'ba \'b1\'d7 \'b0\'aa\'c0\'bb \'c3\'e2\'b7\'c2\'c7\'d2 \'bc\'f6 \'c0\'d6\'c0\'bd\par
+into\'c0\'fd\'c0\'ba \'c7\'d1\'b0\'b3\'b8\'b8 \'b5\'c7\'b1\'e2\'b6\'a7\'b9\'ae\'bf\'a1 where\'c0\'fd\'c0\'c7 \'c1\'b6\'b0\'c7\'c0\'fd\'c0\'bb \'c0\'df\'b8\'b8\'b5\'e9\'be\'ee \'c1\'e0\'be\'df\'c7\'d1\'b4\'d9.(null\'c0\'cc\'b6\'f3\'b5\'b5..)\par
+\'bf\'a9\'b7\'af\'b0\'b3\'b4\'c2 \'b8\'ed\'bd\'c3\'c0\'fb\'c4\'bf\'bc\'ad \'b0\'f8\'ba\'ce\'c7\'cf\'b0\'ed \'b9\'e8\'bf\'ef\'b0\'c5\'c0\'d3\par
+\par
+\par
+\par
+[\'b9\'ae\'c1\'a67] \'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3\'b8\'a6 \'c0\'d4\'b7\'c2\'b0\'aa\'c0\'b8\'b7\'ce \'b9\'de\'be\'c6\'bc\'ad \'b1\'d7 \'bb\'e7\'bf\'f8\'c0\'bb \'bb\'e8\'c1\'a6\'c7\'cf\'b4\'c2 \'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a5\'c0\'bb \'bc\'f6\'c7\'e0\'c7\'cf\'bc\'bc\'bf\'e4.\par
+\'c8\'ad\'b8\'e9\'c0\'c7 \'c3\'e2\'b7\'c2\'b5\'c7\'b4\'c2 \'b0\'e1\'b0\'fa\'b4\'c2 \'be\'c6\'b7\'a1\'bf\'cd \'b0\'b0\'c0\'cc \'c3\'e2\'b7\'c2 \'c8\'c4 transaction\'c0\'ba rollback \'c7\'cf\'bc\'bc\'bf\'e4.\par
+(emp \'c5\'d7\'c0\'cc\'ba\'ed \'bb\'e7\'bf\'eb\'c7\'cf\'bc\'bc\'bf\'e4.)\par
+\par
+<\'c8\'ad\'b8\'e9\'c3\'e2\'b7\'c2>\par
+\par
+\'bb\'e8\'c1\'a6\'b5\'c8 \'bb\'e7\'bf\'f8\'c0\'c7 \'bb\'e7\'bf\'f8 \'b9\'f8\'c8\'a3\'b4\'c2 100 \'c0\'cc\'b0\'ed  \'bb\'e7\'bf\'f8\'c0\'c7 \'c0\'cc\'b8\'a7\'c0\'ba King \'c0\'d4\'b4\'cf\'b4\'d9.\par
+\par
+var b_id number\par
+\par
+execute :b_id := 100\par
+\par
+declare\par
+\tab v_name     emp.last_name%type;\par
+begin \par
+\tab\tab\par
+\tab delete from emp \par
+\tab where employee_id = :b_id\par
+        returning last_name into  v_name;\par
+\par
+  dbms_output.put_line('\'bb\'e8\'c1\'a6\'b5\'c8 \'bb\'e7\'bf\'f8\'c0\'c7 \'bb\'e7\'bf\'f8 \'b9\'f8\'c8\'a3\'b4\'c2 '||:b_id ||' \'c0\'cc\'b0\'ed  '||'\'bb\'e7\'bf\'f8\'c0\'c7 \'c0\'cc\'b8\'a7\'c0\'ba '||v_name||' \'c0\'d4\'b4\'cf\'b4\'d9.');\par
+  rollback;\par
+end;\par
+/\par
+\par
+\par
+\par
+[\'b9\'ae\'c1\'a68] \'ba\'ce\'bc\'ad\'c4\'da\'b5\'e5\'b8\'a6 \'c0\'d4\'b7\'c2\'b0\'aa\'c0\'b8\'b7\'ce \'b9\'de\'be\'c6\'bc\'ad \'b1\'d7 \'ba\'ce\'bc\'ad\'c0\'c7 \'b1\'d9\'b9\'ab\'c7\'cf\'b4\'c2 \'bb\'e7\'bf\'f8\'c0\'c7 \'c0\'ce\'bf\'f8\'bc\'f6\'b8\'a6 \'c3\'e2\'b7\'c2\'c7\'cf\'bd\'c3\'b0\'ed \par
+        \'b1\'d7 \'ba\'ce\'bc\'ad \'bb\'e7\'bf\'f8\'b5\'e9\'c0\'c7 \'b1\'de\'bf\'a9\'c1\'df\'bf\'a1 10000 \'b9\'cc\'b8\'b8\'c0\'ce \'bb\'e7\'bf\'f8\'b8\'b8 10% \'c0\'ce\'bb\'f3\'c7\'d1 \'b1\'de\'bf\'a9\'b7\'ce \'bc\'f6\'c1\'a4\'c7\'cf\'b4\'c2 \'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a5\'c0\'bb \'c0\'db\'bc\'ba\'c7\'cf\'bc\'bc\'bf\'e4.\par
+        \'c8\'ad\'b8\'e9\'c3\'e2\'b7\'c2\'c7\'d1 \'c8\'c4 rollback \'c7\'cf\'bc\'bc\'bf\'e4.(emp \'c5\'d7\'c0\'cc\'ba\'ed \'bb\'e7\'bf\'eb\'c7\'cf\'bc\'bc\'bf\'e4)\par
+\par
+\par
+\par
+20 \'ba\'ce\'bc\'ad\'c0\'c7 \'c0\'ce\'bf\'f8\'bc\'f6\'b4\'c2 2\'b8\'ed \'c0\'d4\'b4\'cf\'b4\'d9.\par
+\par
+20 \'ba\'ce\'bc\'ad\'c0\'c7 \'bc\'f6\'c1\'a4\'b5\'c8 ROW\'c0\'c7 \'bc\'f6\'b4\'c2 1 \'c0\'d4\'b4\'cf\'b4\'d9.\par
+\par
+\par
+var b_id number\par
+\par
+execute :b_id := 20\par
+\par
+DECLARE\par
+\par
+\tab v_cnt number;\par
+\par
+BEGIN        \par
+        SELECT count(*) \par
+      \tab INTO v_cnt\par
+     \tab FROM emp\par
+    \tab WHERE department_id= :b_id;\par
+\par
+   \tab dbms_output.put_line(:b_id ||' \'ba\'ce\'bc\'ad\'c0\'c7 \'c0\'ce\'bf\'f8\'bc\'f6\'b4\'c2 ' || v_cnt ||'\'b8\'ed \'c0\'d4\'b4\'cf\'b4\'d9.');\par
+\par
+   \tab UPDATE emp\par
+     \tab SET salary = salary *1.1\par
+    \tab WHERE department_id = :b_id\par
+\tab AND salary < 10000;\par
+\par
+\tab dbms_output.put_line(:b_id ||' \'ba\'ce\'bc\'ad\'c0\'c7 \'bc\'f6\'c1\'a4\'b5\'c8 ROW\'c0\'c7 \'bc\'f6\'b4\'c2 ' || sql%ROWCOUNT||' \'c0\'d4\'b4\'cf\'b4\'d9.');\par
+\par
+    \tab ROLLBACK;\par
+END;\par
+/\par
+\par
+\par
+\'c1\'b6\'b0\'c7 \'c1\'a6\'be\'ee\'b9\'ae\par
+- TRUE/ FALSE\par
+- boolean\par
+\par
+declare\par
+\tab v_flag boolean := true;\par
+begin\par
+\tab if v_flag then\par
+\tab\tab dbms_output.put_line('\'c2\'fc');\par
+\tab end if;\par
+end;\par
+/\par
+true false\'b4\'c2 \'b9\'ae\'c0\'da\'b0\'aa\'c0\'cc\'be\'c6\'b4\'cf\'b4\'d9.\par
+\par
+declare\par
+\tab v_flag boolean := true;\par
+begin\par
+\tab if v_flag then\par
+\tab\tab dbms_output.put_line('\'c2\'fc');\par
+\tab else \par
+\tab\tab dbms_output.put_line('\'b0\'c5\'c1\'fe');\par
+\tab end if;\par
+end;\par
+/\par
+\par
+if\'b9\'ae\par
+if \'c1\'b6\'b0\'c7 then        --\'c1\'b6\'b0\'c7\'c0\'cc true\'b8\'e9 then return\par
+\tab\'c2\'fc\'b0\'aa\par
+elsif \'c1\'b6\'b0\'c7 then\par
+\tab\'c2\'fc\'b0\'aa\par
+elsif \'c1\'b6\'b0\'c7 then\par
+\tab\'c2\'fc\'b0\'aa\par
+else \par
+\tab\'b1\'e2\'ba\'bb\'b0\'aa\par
+end if;\par
+\par
+\'ba\'f1\'b1\'b3\'bf\'ac\'bb\'ea\'c0\'da\par
+x < y: x\'b0\'a1 y\'ba\'b8\'b4\'d9 \'c0\'db\'b4\'d9\par
+x > y\par
+x = y\par
+x != y\par
+x >= y\par
+x <= y\par
+\par
+\'b3\'ed\'b8\'ae\'bf\'ac\'bb\'ea\'c0\'da\par
+and, or, not\par
+null \'ba\'f1\'b1\'b3\par
+is null, is not null\par
+\par
+null \'ba\'f1\'b1\'b3\par
+is null, is not null\par
+x:=1\par
+y:=null\par
+if x = y then\par
+\tab ....\par
+else\par
+\tab ...\par
+end if;\par
+\par
+[\'b9\'ae\'c1\'a613] \'bb\'e7\'bf\'f8\'b9\'f8\'c8\'a3\'b8\'a6 \'c0\'d4\'b7\'c2\'b0\'aa\'c0\'b8\'b7\'ce \'b9\'de\'be\'c6\'bc\'ad \'b1\'d7 \'bb\'e7\'bf\'f8\'c0\'c7 \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6\'b8\'a6 \'c3\'e2\'b7\'c2\'c7\'cf\'b0\'ed \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6\'b0\'a1\par
+150\'b0\'b3\'bf\'f9 \'c0\'cc\'bb\'f3\'c0\'cc\'b8\'e9 \'b1\'de\'bf\'a9\'b8\'a6 20% \'c0\'ce\'bb\'f3\'c7\'d1 \'b1\'de\'bf\'a9\'b7\'ce \'bc\'f6\'c1\'a4, \par
+149\'b0\'b3\'bf\'f9 \'ba\'b8\'b4\'d9 \'c0\'db\'b0\'c5\'b3\'aa \'b0\'b0\'b0\'ed 100\'b0\'b3\'bf\'f9 \'ba\'b8\'b4\'d9 \'c5\'a9\'b0\'c5\'b3\'aa \'b0\'b0\'c0\'b8\'b8\'e9  10%\'c0\'ce\'bb\'f3\'c7\'d1 \'b1\'de\'bf\'a9\'b7\'ce \'bc\'f6\'c1\'a4,\par
+100\'b0\'b3\'bf\'f9 \'b9\'cc\'b8\'b8\'c0\'ce \'b1\'d9\'b9\'ab\'c0\'da\'b4\'c2 \'be\'c6\'b9\'ab \'c0\'db\'be\'f7\'c0\'bb \'bc\'f6\'c7\'e0\'c7\'cf\'c1\'f6 \'be\'ca\'b4\'c2 \'c7\'c1\'b7\'ce\'b1\'d7\'b7\'a5\'c0\'bb \'c0\'db\'bc\'ba\'c7\'cf\'bc\'bc\'bf\'e4.\par
+\'c5\'d7\'bd\'ba\'c6\'ae\'b0\'a1 \'b3\'a1\'b3\'aa\'b8\'e9 rollback \'c7\'d5\'b4\'cf\'b4\'d9.(emp \'c5\'d7\'c0\'cc\'ba\'ed \'bb\'e7\'bf\'eb)\par
+\par
+\par
+<\'c8\'ad\'b8\'e9 \'c3\'e2\'b7\'c2>\par
+\par
+100 \'bb\'e7\'bf\'f8\'c0\'ba \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6\'b0\'a1 154 \'c0\'d4\'b4\'cf\'b4\'d9. \'b1\'de\'bf\'a9\'b4\'c2 20% \'bc\'f6\'c1\'a4\'b5\'c7\'be\'fa\'bd\'c0\'b4\'cf\'b4\'d9.\par
+\par
+\par
+<\'c8\'ad\'b8\'e9 \'c3\'e2\'b7\'c2>\par
+\par
+166 \'bb\'e7\'bf\'f8\'c0\'ba \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6\'b0\'a1 97 \'c0\'d4\'b4\'cf\'b4\'d9. 100 \'b0\'b3\'bf\'f9 \'b9\'cc\'b8\'b8\'c0\'cc\'b9\'c7\'b7\'ce  \'b1\'de\'bf\'a9 \'bc\'f6\'c1\'a4 \'be\'c8\'b5\'cb\'b4\'cf\'b4\'d9.\par
+\par
+\par
+\par
+var b_id number\par
+\par
+execute :b_id := 100\par
+\par
+declare\par
+\tab v_mon number;\par
+begin\par
+\tab SELECT trunc(months_between(sysdate, hire_date))\par
+\tab INTO v_mon\par
+\tab FROM emp\par
+\tab WHERE employee_id = :b_id;\par
+\par
+\tab if v_mon >= 150 then\par
+\par
+\tab\tab UPDATE emp\par
+\tab\tab SET salary = salary * 1.20\par
+\tab\tab WHERE employee_id = :b_id;\par
+\par
+\tab\tab dbms_output.put_line(:b_id||' \'bb\'e7\'bf\'f8\'c0\'ba \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6\'b0\'a1 '\par
+                                 ||v_mon||' \'c0\'d4\'b4\'cf\'b4\'d9. \'b1\'de\'bf\'a9\'b4\'c2 20% \'bc\'f6\'c1\'a4\'b5\'c7\'be\'fa\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+\tab elsif v_mon between 100 and 149 then\par
+\par
+\tab\tab UPDATE emp\par
+\tab\tab SET salary = salary * 1.10\par
+\tab\tab WHERE employee_id = :b_id;\par
+\tab\tab\tab dbms_output.put_line(:b_id||' \'bb\'e7\'bf\'f8\'c0\'ba \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6\'b0\'a1 '\par
+                                 ||v_mon||' \'c0\'d4\'b4\'cf\'b4\'d9. \'b1\'de\'bf\'a9\'b4\'c2 10% \'bc\'f6\'c1\'a4\'b5\'c7\'be\'fa\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+\tab else\par
+\tab\tab\par
+\tab\tab dbms_output.put_line(:b_id||' \'bb\'e7\'bf\'f8\'c0\'ba \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6\'b0\'a1 '||v_mon||' \'c0\'d4\'b4\'cf\'b4\'d9. 100 \'b0\'b3\'bf\'f9 \'b9\'cc\'b8\'b8\'c0\'cc\'b9\'c7\'b7\'ce  \'b1\'de\'bf\'a9 \'bc\'f6\'c1\'a4 \'be\'c8\'b5\'cb\'b4\'cf\'b4\'d9.');\par
+\par
+\tab end if;\par
+\tab\par
+\tab rollback;\par
+\tab\par
+end;\par
+/\par
+\par
+\par
+\par
+--------\par
+case \'c7\'a5\'c7\'f6\'bd\'c4\par
+v_a := upper ('a'); \'c7\'c1\'b7\'ce\'bd\'c3\'c0\'fa\'b9\'ae\'bf\'a1\'bc\'ad \'bb\'e7\'bf\'eb\'b0\'a1\'b4\'c9\par
+v_sal := sum(v_salary); \'c7\'c1\'b7\'ce\'bd\'c3\'c0\'fa\'b9\'ae\'bf\'a1\'bc\'ad \'bb\'e7\'bf\'eb\'ba\'d2\'b0\'a1\'b4\'c9\'c7\'cf\'b4\'d9.\par
+v_flag:= decode(....); \'bb\'e7\'bf\'eb\'ba\'d2\'b0\'a1\par
+v_falg:=case(....); \'bb\'e7\'bf\'eb\'b0\'a1\'b4\'c9\'c7\'cf\'b4\'d9.\par
+\par
+\'c4\'c9\'c0\'cc\'bd\'ba\'b4\'c2 \'b1\'d7\'b7\'ec\'c7\'d4\'bc\'f6, decode\'bb\'e7\'bf\'eb\'ba\'d2\'b0\'a1\'b4\'c9\par
+\'c7\'d4\'bc\'f6\'b0\'a1 \'c8\'a5\'c0\'da \'bb\'e7\'bf\'eb\'b0\'a1\'b4\'c9\'c7\'d1\'b0\'d4\'be\'c6\'b4\'d4\par
+\par
+declare\par
+\tab v_grade char(1) := upper('c');\par
+\tab v_appraisal varcha2(30);\par
+begin\par
+\tab v_appraisal ;= case v_grade when 'A' then ' \'c2\'fc\'c0\'df\'c7\'df\'be\'ee\'bf\'e4'\par
+\tab\tab\tab\tab       when 'B' then '\'c0\'df\'c7\'df\'be\'ee\'bf\'e4'\par
+\tab\tab\tab\tab       when 'C' then '\'b4\'d9\'c0\'bd\'bf\'a1 \'c0\'df\'c7\'d8\'bf\'e4'\par
+\tab\tab\tab\tab       else '\'b4\'cf\'b0\'a1 \'bb\'e7\'b6\'f7\'c0\'cc\'be\'df!!'\par
+\tab\tab\tab end;\par
+\tab dbms_output.put_line('\'b5\'ee\'b1\'de\'c0\'ba'||v_grade||' \'c6\'f2\'b0\'a1\'b4\'c2 '|| v_appraisal);\par
+end;\par
+/\par
+\par
+\par
+\par
+declare\par
+\tab v_grade char(1) := upper('c');\par
+\tab v_appraisal varcha2(30);\par
+begin\par
+\tab v_appraisal ;= case v_grade when v_grade = 'A' then ' \'c2\'fc\'c0\'df\'c7\'df\'be\'ee\'bf\'e4'\par
+\tab\tab\tab\tab       when v_grade in ('B','C') then '\'c0\'df\'c7\'df\'be\'ee\'bf\'e4'\par
+\tab\tab\tab\tab       when v_grade = 'D' then '\'b4\'d9\'c0\'bd\'bf\'a1 \'c0\'df\'c7\'d8\'bf\'e4'\par
+\tab\tab\tab\tab       else '\'b4\'cf\'b0\'a1 \'bb\'e7\'b6\'f7\'c0\'cc\'be\'df!!'\par
+\tab\tab\tab end;\par
+\tab dbms_output.put_line('\'b5\'ee\'b1\'de\'c0\'ba'||v_grade||' \'c6\'f2\'b0\'a1\'b4\'c2 '|| v_appraisal);\par
+end;\par
+/\par
+\par
+if\'b9\'ae\'c3\'b3\'b7\'b3 case\'b8\'a6 \'be\'b2\'b0\'ed \'bd\'cd\'b4\'d9\'b8\'e9..?case\'b9\'ae\par
+case --\'bd\'c3\'c0\'db\par
+case \'c1\'b6\'b0\'c7\par
+\tab when \'ba\'f1\'b1\'b31 then \'c2\'fc\'b0\'aa1\par
+\tab when \'ba\'f1\'b1\'b32 then \'c2\'fc\'b0\'aa2\par
+\tab else\par
+\tab\tab\'b1\'e2\'ba\'bb\'b0\'aa\par
+end case; --\'b3\'a1\par
+case\'b9\'ae\'c0\'ba if\'b9\'ae\'c3\'b3\'b7\'b3\'a4\'b6\'b4\'c0\'b4\'c0\'b0\'cd\'c0\'cc\'b4\'d9.\par
+\par
+\'b9\'ae\'c1\'a6_14\par
+ar b_id number\par
+\par
+execute :b_id := 100\par
+\par
+declare\par
+\tab v_mon number;\par
+begin\par
+\tab SELECT trunc(months_between(sysdate, hire_date))\par
+\tab INTO v_mon\par
+\tab FROM emp\par
+\tab WHERE employee_id = :b_id;\par
+\par
+\tab if v_mon >= 150 then\par
+\par
+\tab\tab UPDATE emp\par
+\tab\tab SET salary = salary * 1.20\par
+\tab\tab WHERE employee_id = :b_id;\par
+\par
+\tab\tab dbms_output.put_line(:b_id||' \'bb\'e7\'bf\'f8\'c0\'ba \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6\'b0\'a1 '\par
+                                 ||v_mon||' \'c0\'d4\'b4\'cf\'b4\'d9. \'b1\'de\'bf\'a9\'b4\'c2 20% \'bc\'f6\'c1\'a4\'b5\'c7\'be\'fa\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+\tab elsif v_mon between 100 and 149 then\par
+\par
+\tab\tab UPDATE emp\par
+\tab\tab SET salary = salary * 1.10\par
+\tab\tab WHERE employee_id = :b_id;\par
+\tab\tab\tab dbms_output.put_line(:b_id||' \'bb\'e7\'bf\'f8\'c0\'ba \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6\'b0\'a1 '\par
+                                 ||v_mon||' \'c0\'d4\'b4\'cf\'b4\'d9. \'b1\'de\'bf\'a9\'b4\'c2 10% \'bc\'f6\'c1\'a4\'b5\'c7\'be\'fa\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+\tab else\par
+\tab\tab\par
+\tab\tab dbms_output.put_line(:b_id||' \'bb\'e7\'bf\'f8\'c0\'ba \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6\'b0\'a1 '||v_mon||' \'c0\'d4\'b4\'cf\'b4\'d9. 100 \'b0\'b3\'bf\'f9 \'b9\'cc\'b8\'b8\'c0\'cc\'b9\'c7\'b7\'ce  \'b1\'de\'bf\'a9 \'bc\'f6\'c1\'a4 \'be\'c8\'b5\'cb\'b4\'cf\'b4\'d9.');\par
+\par
+\tab end if;\par
+\tab\par
+\tab rollback;\par
+\tab\par
+end;\par
+/\par
+[\'b9\'ae\'c1\'a614] \'b9\'ae\'c1\'a613\'b9\'f8\'c0\'bb case\'b9\'ae\'c0\'b8\'b7\'ce \'bc\'f6\'c1\'a4\'c7\'cf\'bc\'bc\'bf\'e4.\par
+\par
+var b_id number\par
+execute :b_id := 198\par
+\par
+declare\par
+\tab v_mon number;\par
+begin\par
+\tab SELECT trunc(months_between(sysdate, hire_date))\par
+\tab INTO v_mon\par
+\tab FROM emp\par
+\tab WHERE employee_id = :b_id;\par
+\par
+\tab case \par
+\tab  when  v_mon >= 150 then\par
+\par
+\tab\tab UPDATE emp\par
+\tab\tab SET salary = salary * 1.20\par
+\tab\tab WHERE employee_id = :b_id;\par
+\par
+\tab\tab dbms_output.put_line(:b_id||' \'bb\'e7\'bf\'f8\'c0\'ba \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6\'b0\'a1 '\par
+                                 ||v_mon||' \'c0\'d4\'b4\'cf\'b4\'d9. \'b1\'de\'bf\'a9\'b4\'c2 20% \'bc\'f6\'c1\'a4\'b5\'c7\'be\'fa\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+    \tab  when v_mon between 100 and 149 then\par
+\par
+\tab\tab UPDATE emp\par
+\tab\tab SET salary = salary * 1.10\par
+\tab\tab WHERE employee_id = :b_id;\par
+\tab\tab\tab dbms_output.put_line(:b_id||' \'bb\'e7\'bf\'f8\'c0\'ba \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6\'b0\'a1 '\par
+                                 ||v_mon||' \'c0\'d4\'b4\'cf\'b4\'d9. \'b1\'de\'bf\'a9\'b4\'c2 10% \'bc\'f6\'c1\'a4\'b5\'c7\'be\'fa\'bd\'c0\'b4\'cf\'b4\'d9.');\par
+\tab  else\par
+\tab\tab\par
+\tab\tab dbms_output.put_line(:b_id||' \'bb\'e7\'bf\'f8\'c0\'ba \'b1\'d9\'b9\'ab\'b0\'b3\'bf\'f9\'bc\'f6\'b0\'a1 '||v_mon||' \'c0\'d4\'b4\'cf\'b4\'d9. 100 \'b0\'b3\'bf\'f9 \'b9\'cc\'b8\'b8\'c0\'cc\'b9\'c7\'b7\'ce  \'b1\'de\'bf\'a9 \'bc\'f6\'c1\'a4 \'be\'c8\'b5\'cb\'b4\'cf\'b4\'d9.');\par
+\par
+\tab end case;\par
+\tab\par
+\tab rollback;\par
+\tab\par
+end;\par
+/\par
+\par
+\par
+\par
+\b\fs32\'c1\'b6\'b0\'c7\'c1\'a6\'be\'f0\'b9\'ae\par
+\b0\fs20 if\'b9\'ae\par
+case\'b9\'ae\par
+case\'c7\'a5\'c7\'f6\'bd\'c4\par
+\par
+if->case\par
+when\par
+else if->when\par
+\par
+\'b9\'dd\'ba\'b9\'b9\'ae\par
+loop\'b9\'ae\par
+\'b8\'d8\'c3\'e3\'c0\'bb \'b0\'c9\'be\'ee\'be\'df\'c7\'d1\'b4\'d9. \'be\'c8\'b1\'d7\'b7\'af\'b8\'e9 \'b0\'e8\'bc\'d3\'b5\'b9\'b4\'d9 \'b9\'ab\'c7\'d1\'b7\'e7\'c7\'c1\'b5\'ca\par
+\par
+\b\fs32 loop\'b9\'ae\par
+\b0\fs20 declare\par
+\tab i number :=1;\par
+begin\par
+\tab loop\par
+\tab\tab dbms_output.put_line(i)\par
+\tab\tab i:=i+1;\par
+\b\tab\tab exit; --\'b7\'e7\'c7\'c1\'b1\'b8\'c1\'b6(\'b9\'dd\'ba\'b9\'b9\'ae)\'be\'c8\'bf\'a1\'bc\'ad\'b8\'b8 \'be\'b2\'b4\'c2 \'b9\'ae\'c0\'cc\'b4\'d9.(sql exit\'be\'c6\'b4\'d4)\par
+end 100;\par
+\b0 end;\par
+/\par
+\par
+\par
+\par
+declare\par
+\tab i number :=1;\par
+begin\par
+\tab loop\par
+\tab\tab dbms_output.put_line(i)\par
+\tab\tab i:=i+1; --\'c4\'ab\'bf\'ee\'c6\'ae\'ba\'af\'bc\'f6\par
+\b\tab\tab i:f >10 then exit; \par
+\tab\tab\tab\tab exit; --\'b7\'e7\'c7\'c1\'b1\'b8\'c1\'b6(\'b9\'dd\'ba\'b9\'b9\'ae)\'be\'c8\'bf\'a1\'bc\'ad\'b8\'b8 \'be\'b2\'b4\'c2 \'b9\'ae\'c0\'cc\'b4\'d9.\par
+\tab\tab\b0 end if;\par
+\tab and loop;\b\par
+\b0 end 100;\par
+end;\par
+/\par
+\par
+exit\'be\'ee\'b5\'f0\'bf\'a1\'b5\'fb\'b6\'f3\'c0\'d6\'b4\'c2\'c1\'f6 \'c0\'a7\'c4\'a1\'b4\'d9\'b8\'a3\'b4\'d9.\par
+exit\'b6\'f3\'b4\'c2 \'b9\'ae\'c0\'bb \'c0\'cc\'bf\'eb\'c7\'d8\'bc\'ad \par
+\'c1\'b6\'b0\'c7\'c0\'cc true\'b8\'e9 \'b3\'aa\'bf\'c0\'b4\'c2\'b0\'cd\'b5\'b5 \'b3\'aa\'bb\'da\'c1\'f6\'be\'ca\'c0\'bd\par
+\par
+\par
+gk\par
+end;\par
+/whirl\par
+\par
+\par
+\par
+\b\fs32 while loop \'b9\'ae\par
+\b0\fs20 [\'bf\'b9\'b9\'ae]\par
+declare\par
+        i number := 1;\par
+begin\par
+        while i <= 10 loop\par
+                dbms_output.put_line(i);\par
+                i := i+1;\par
+        end loop;\par
+end;\par
+/\par
+\par
+[\'bf\'b9\'b9\'ae]\par
+declare\par
+        i number := 1;\par
+begin\par
+        while i <= 10 loop\par
+                dbms_output.put_line(i);\par
+                i := i+1;\par
+                if i = 5 then\par
+                          exit;\par
+                end if;\par
+        end loop;\par
+end;\par
+/\par
+\'c1\'b6\'b0\'c7\'c0\'cc \'c6\'ae\'b7\'e7\'b8\'e9 \'c0\'cc\'b4\'eb\'b7\'ce\'b3\'aa\'bf\'c0\'b0\'ed \'be\'c6\'b4\'cf\'b8\'e9else\par
+\'b8\'c5\'b9\'f8 \'b9\'dd\'ba\'b9\'c7\'d2\'b6\'a7\'b8\'b6\'b4\'d9 \'c1\'b6\'b0\'c7\'c0\'bb \'c6\'c7\'b4\'dc\'c7\'cf\'b4\'c2 \'b9\'e6\'bd\'c4\par
+\par
+while\'b9\'ae\'c0\'ba \'c1\'b6\'b0\'c7\'c0\'bb \'b8\'d5\'c0\'fa\'ba\'bb\'b4\'d9.\par
+\par
+\'be\'c6\'c1\'b9\'be\'c6\'bc\'ad \'c7\'cf\'b3\'aa\'b5\'b5\'b8\'f8\'c0\'fb\'c0\'bd..\'a4\'cc\'a4\'cc\'bd\'c7\'c7\'e0\'c7\'d8\'ba\'b8\'b8\'e9\'b4\'c0\'b3\'a5\'bc\'f6\'c0\'d6\'be\'ee\par
+\par
+\par
+\par
+\b\fs32 for\'b9\'ae\par
+\b0\fs20 begin \par
+\tab for i in 1.. 10 loop \par
+\tab\tab dbms_output.put_line(i);\tab\par
+\tab end loop;\par
+end;\par
+/\par
+i\'c4\'ab\'bf\'ee\'c6\'ae \'ba\'af\'bc\'f6, \'b1\'e2\'ba\'bb\'b7\'e7\'c7\'c1\'bf\'a1\'bc\'ad\'b4\'c2 i\'c4\'ab\'bf\'ee\'c6\'ae \'ba\'af\'bc\'f6\'b8\'a6 \'bc\'b1\'be\'f0\'c7\'d8\'be\'df\'c7\'cf\'c1\'f6\'b8\'b8 for\'b9\'ae\'bf\'a1\'bc\'ad\'b4\'c2 \'bc\'b1\'be\'f0\'c7\'d8\'ba\'c3\'c0\'da \'c0\'c7\'b9\'cc\'be\'f8\'b4\'d9.\par
+for\'b9\'ae\'c0\'c7 \'c4\'ab\'bf\'ee\'c6\'ae\'ba\'af\'bc\'f6\'b4\'c2 \'c0\'da\'b5\'bf\'c0\'b8\'b7\'ce\'b5\'c8\'b4\'d9.\par
+i\'b6\'f3\'b4\'c2 \'c4\'ab\'bf\'ee\'c6\'ae\'ba\'af\'bc\'f6\'b4\'c2 1\'be\'bf\'c1\'f5\'b0\'a1\'c7\'d1\'b4\'d9.\par
+i\'b6\'f3\'b4\'c2 \'c4\'ab\'bf\'ee\'c6\'ae\'ba\'af\'bc\'f6\'b4\'c2 \'bb\'e7\'bf\'eb\'b8\'b8\'c7\'d8\'be\'df\'c7\'d1\'b4\'d9. (i :=i+1; \'c4\'ab\'bf\'ee\'c6\'ae\'ba\'af\'bc\'f6\'b4\'c2 \'c0\'cc\'b7\'b8\'b0\'d4 \'c7\'d2 \'b4\'e7\'c7\'d2 \'bc\'f6\'b0\'a1\'be\'f8\'b4\'d9.)\par
+10\'be\'bf\'c1\'f5\'b0\'a1, 50\'be\'bf\'c1\'f5\'b0\'a1 \'c0\'cc\'b7\'b1\'bd\'c4\'c0\'cc\'b8\'e9 for\'b9\'ae\'c0\'bb \'bb\'e7\'bf\'eb\'c7\'d2 \'bc\'f6 \'be\'f8\'b4\'d9.\par
+\'b4\'d9\'b8\'a5\'b0\'aa\'c0\'b8\'b7\'ce \'c0\'ce\'c0\'a7\'c0\'fb\'c0\'b8\'b7\'ce \'b9\'d9\'b2\'dc \'bc\'f6 \'be\'f8\'b4\'d9.\par
+\par
+\par
+declare\par
+\tab v_start number := 1;\par
+\tab v_end number := 10;\par
+\par
+begin\par
+\tab for i in v_start.. v_end loop\par
+\tab\tab dbms_output.put_line(i);\par
+\tab end loop;\par
+end;\par
+/\par
+\'ba\'af\'bc\'f6\'bf\'a1 null\'b3\'d6\'c0\'b8\'b8\'e9 \'bf\'c0\'b7\'f9\'b3\'ad\'b4\'d9. \'b9\'fc\'c0\'a7\'b4\'c2 \'b3\'ce\'b0\'aa\'c0\'bb \'be\'b5 \'bc\'f6 \'be\'f8\'b4\'d9.\par
+\par
+declare\par
+\tab v_start number := 1;\par
+\tab v_end number := 10;\par
+\par
+begin\par
+\tab for i in\b  reverse \b0 v_start.. v_end loop\par
+\tab\tab dbms_output.put_line(i);\par
+\tab end loop;\par
+end;\par
+/\par
+reverse \'c5\'ab\'b0\'aa\'ba\'ce\'c5\'cd\'c7\'d8\'bc\'ad \'c0\'db\'c0\'ba\'b0\'aa\'c0\'b8\'b7\'ce\par
+\par
+\par
+\'c1\'b6\'b0\'c7\'c0\'cc\'be\'f8\'b4\'c2 \'bb\'f3\'c5\'c2\'bf\'a1\'bc\'ad \'b9\'dd\'ba\'b9\'c0\'db\'be\'f7\'c0\'bb \'c7\'d1\'b4\'d9. - \'b1\'e2\'ba\'bb\'b7\'e7\'c7\'c1\'b1\'b8\'c1\'b6\'b8\'a6 \'c0\'cc\'bf\'eb\par
+\'b8\'c5\'b9\'f8 \'b9\'dd\'ba\'b9\'c7\'d2\'b6\'a7\'b8\'b6\'b4\'d9 \'c1\'b6\'b0\'c7\'c0\'bb\'c6\'f2\'b0\'a1\'c7\'d1\'b4\'d9. - while loop\par
+\'b9\'dd\'ba\'b9\'c8\'bd\'bc\'f6\'b8\'a6\'be\'c8\'b4\'d9. - for\'b9\'ae\par
+\par
+\'c0\'cc\'bc\'bc\'b0\'a1\'c1\'f6\'be\'c8\'bf\'a1 \'b8\'f0\'b5\'ce exit\'b8\'a6 \'be\'b5 \'bc\'f6 \'c0\'d6\'b4\'d9.\par
+for\'b9\'ae\'c0\'bb \'c0\'cc\'bf\'eb\'c7\'d2 \'b6\'a7 \'c4\'ab\'bf\'ee\'c6\'ae\'ba\'af\'bc\'f6\'b4\'c2 \'b4\'d9\'b8\'a5\'ba\'af\'bc\'f6\'b8\'a6 \'bb\'e7\'bf\'eb\'c7\'d2 \'bc\'f6\'be\'f8\'b0\'ed \'b1\'d7 for\'b9\'ae\'be\'c8\'bf\'a1\'bc\'ad\'b8\'b8\'bb\'e7\'bf\'eb\'c7\'d2 \'bc\'f6\'c0\'d6\'b4\'c2 \'b7\'ce\'c4\'c3\'ba\'af\'bc\'f6\'c0\'cc\'b8\'e7 \'b4\'d9\'b8\'a5\'b0\'aa\'c0\'b8\'b7\'ce \'c7\'d2 \'b4\'e7 \'c7\'d8\'bc\'ad\'b4\'c2 \'be\'c8\'b5\'c8\'b4\'d9.\par
+\par
+6\'b9\'f8~18\'b9\'f8\'b9\'ae\'c1\'a6\tab\par
+}
+ 

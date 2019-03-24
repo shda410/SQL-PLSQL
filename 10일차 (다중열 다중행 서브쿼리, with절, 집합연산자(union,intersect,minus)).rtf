@@ -1,0 +1,317 @@
+{\rtf1\ansi\ansicpg949\deff0{\fonttbl{\f0\fnil\fcharset129 \'b8\'bc\'c0\'ba \'b0\'ed\'b5\'f1;}}
+{\*\generator Msftedit 5.41.21.2510;}\viewkind4\uc1\pard\sl240\slmult1\lang18\f0\fs20 [\'b9\'ae\'c1\'a674] \'c6\'f2\'b1\'d5 \'b1\'de\'bf\'a9\'b0\'a1 \'b0\'a1\'c0\'e5 \'b3\'f4\'c0\'ba \'ba\'ce\'bc\'ad\'c0\'c7 \'ba\'ce\'bc\'ad \'b9\'f8\'c8\'a3\'bf\'cd \'c3\'d6\'b0\'ed, \'c3\'d6\'c0\'fa, \'c6\'f2\'b1\'d5 \'b1\'de\'bf\'a9\'b8\'a6 \'c3\'e2\'b7\'c2\'c7\'cf\'bc\'bc\'bf\'e4.\par
+\par
+select department_id, max(salary), min(salary), avg(salary)\par
+from employees\par
+group by department_id\par
+having avg(salary) = (select max(avg(salary))\par
+\tab\tab from employees\par
+\tab\tab group by department_id);\par
+\par
+\par
+[\'b9\'ae\'c1\'a675] \'bb\'e7\'bf\'f8 \'bc\'f6\'b0\'a1 \'b0\'a1\'c0\'e5 \'b8\'b9\'c0\'ba \'ba\'ce\'bc\'ad\'c0\'cc\'b8\'a7, \'b5\'b5\'bd\'c3, \'c0\'ce\'bf\'f8\'bc\'f6\'b8\'a6 \'c3\'e2\'b7\'c2\'c7\'d8\'c1\'d6\'bc\'bc\'bf\'e4.\par
+\par
+select d.department_name, l.city, e.cn\par
+from (select department_id, count(*) cn\par
+       from employees\par
+       group by department_id\par
+       having count(*) = (select max(count(*))\par
+                          \tab      from employees\par
+                          \tab     group by department_id)) e, departments d, locations l\par
+where e.department_id = d.department_id\par
+and d.location_id = l.location_id;\par
+\par
+\par
+select d.department_name, l.city, e.cn\par
+from (select department_id, count(*) cn\par
+       from employees\par
+       group by department_id\par
+       having count(*) = (select max(count(*))\par
+                          from employees\par
+                          group by department_id)) e join departments d\par
+on e.department_id = d.department_id\par
+join locations l\par
+on d.location_id = l.location_id;\par
+\par
+\par
+[\'b9\'ae\'c1\'a676] \'bb\'e7\'bf\'f8 \'c3\'a4\'bf\'eb \'bc\'f6\'b0\'a1 \'b0\'a1\'c0\'e5 \'b8\'b9\'c0\'ba \'bf\'e4\'c0\'cf\'c0\'bb \'c3\'e2\'b7\'c2\'c7\'d8\'c1\'d6\'bc\'bc\'bf\'e4.\par
+\par
+select to_char(hire_date, 'day')\par
+from employees\par
+group by to_char(hire_date, 'day')\par
+having count(*) = (select max(count(*))\par
+                             from employees\par
+                             group by to_char(hire_date, 'day'));\par
+\par
+\par
+[\'b9\'ae\'c1\'a677] \'bb\'e7\'bf\'f8 \'c3\'a4\'bf\'eb \'bc\'f6\'b0\'a1 \'b0\'a1\'c0\'e5 \'b8\'b9\'c0\'ba \'bf\'e4\'c0\'cf\'bf\'a1 \'c0\'d4\'bb\'e7\'c7\'d1 \'bb\'e7\'bf\'f8\'b5\'e9\'c0\'c7 last_name, \'bf\'e4\'c0\'cf\'c0\'bb \'c3\'e2\'b7\'c2\'c7\'d8\'c1\'d6\'bc\'bc\'bf\'e4.\par
+\par
+select last_name, to_char(hire_date, 'day') day\par
+from employees\par
+where to_char(hire_date, 'day') in( select to_char(hire_date, 'day')\par
+\tab\tab\tab         from employees\par
+\tab\tab\tab         group by to_char(hire_date, 'day')\par
+\tab\tab\tab         having count(*) = (select max(count(*))\par
+\tab\tab\tab                       from employees\par
+\tab\tab\tab                       group by to_char(hire_date, 'day')));\par
+\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\tab\par
+\par
+[\'b9\'ae\'c1\'a678] \'ba\'ce\'bc\'ad\'ba\'b0\'b7\'ce \'c0\'ce\'bf\'f8\'bc\'f6\'b8\'a6 \'c3\'e2\'b7\'c2\'c1\'d6\'bc\'bc\'bf\'e4.\par
+\par
+<\'c8\'ad\'b8\'e9\'b0\'e1\'b0\'fa> \par
+\par
+       10         20        30         40        50         60         70         80         90      100        110 \'ba\'ce\'bc\'ad\'b0\'a1 \'be\'f8\'b4\'c2 \'bb\'e7\'bf\'f8\par
+---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ------------------\par
+         1          2          6            1         45           5          1         34           3           6          2                    1\par
+\par
+\par
+select count(decode(department_id,10,1)) "10",\par
+       count(decode(department_id, 20,1)) "20",\par
+       count(decode(department_id,30,1)) "30",\par
+       count(decode(department_id,40,1)) "40",   \par
+       count(decode(department_id,50,1)) "50",\par
+       count(decode(department_id,60,1)) "60",\par
+       count(decode(department_id,70,1)) "70",\par
+       count(decode(department_id,80,1)) "80" ,\par
+       count(decode(department_id,90,1)) "90",\par
+       count(decode(department_id,100,1)) "100",  \par
+       count(decode(department_id,110,1)) "110",\par
+       count(decode(department_id,null,1)) "\'ba\'ce\'bc\'ad\'b0\'a1 \'be\'f8\'b4\'c2 \'bb\'e7\'bf\'f8"  \par
+from employees;\par
+\par
+\par
+\par
+select max(decode(department_id,10,cn)) "10",\par
+       max(decode(department_id, 20,cn)) "20",\par
+       max(decode(department_id,30,cn)) "30",\par
+       max(decode(department_id,40,cn)) "40",   \par
+       max(decode(department_id,50,cn)) "50",\par
+       max(decode(department_id,60,cn)) "60",\par
+       max(decode(department_id,70,cn)) "70",\par
+       max(decode(department_id,80,cn)) "80" ,\par
+       max(decode(department_id,90,cn)) "90",\par
+       max(decode(department_id,100,cn)) "100",  \par
+       max(decode(department_id,110,cn)) "110",\par
+       max(decode(department_id,null,cn)) "\'ba\'ce\'bc\'ad\'b0\'a1 \'be\'f8\'b4\'c2 \'bb\'e7\'bf\'f8"  \par
+from (select department_id, count(*) cn\par
+          from employees\par
+          group by department_id);\tab\tab\tab\par
+\par
+c.f case \'bb\'e7\'bf\'eb\'c7\'cf\'b8\'e9  when\'c0\'fd\'bf\'a1 department_id is null\'c0\'cc\'b7\'b1\'bd\'c4\'c0\'b8\'b7\'ce is null\'c0\'bb \'bb\'e7\'bf\'eb\'c7\'d8\'c1\'e0\'be\'df\'c7\'d1\'b4\'d9.\par
+\par
+\par
+\par
+\b\fs28 3.\'b4\'d9\'c1\'df\'bf\'ad \'b4\'d9\'c1\'df\'c7\'e0 \'bc\'ad\'ba\'ea\'c4\'f5\'b8\'ae\b0\fs20\par
+select * \par
+from employees\par
+where (manager_id, department_id) in (select manager_id, department_id\par
+                                      from employees\par
+                                      where first_name = 'John');\par
+\b\'bd\'d6\'ba\'f1\'b1\'b3\'b9\'e6\'bd\'c4\b0\par
+\par
+select *\par
+from employees\par
+where manager_id in (select manager_id\par
+                      from employees\par
+                      where first_name = 'John')\par
+and department_id in (select department_id\par
+                      from employees\par
+                      where first_name = 'John');\par
+\b\'ba\'f1\'bd\'d6\'ba\'f1\'b1\'b3\'b9\'e6\'bd\'c4\b0                   \par
+\par
+c.f \'bd\'d6\'ba\'f1\'b1\'b3 \'ba\'f1\'bd\'d6\'ba\'f1\'b1\'b3\'b9\'e6\'bd\'c4\'c0\'ba \'b3\'eb\'c6\'ae\'be\'db\'bf\'a1 \'b8\'de\'b8\'f0\'c7\'d8\'b3\'f5\'c0\'bd \par
+\par
+\par
+\'b4\'dc\'c0\'cf\'c7\'e0\'bc\'ad\'ba\'ea\'c4\'f5\'b8\'ae \par
+\'bf\'a9\'b7\'af\'c7\'e0\'bc\'ad\'ba\'ea\'c4\'f5\'b8\'ae \par
+\'b4\'d9\'c1\'df\'bf\'ad(\'b4\'d9\'c1\'df\'c7\'e0)\'bc\'ad\'ba\'ea\'c4\'f5\'b8\'ae  (ho: \'b4\'d9\'c1\'df\'c7\'e0\'c0\'cc\'b5\'c9\'bc\'f6\'b5\'b5\'c0\'d6\'b0\'ed \'b4\'dc\'c0\'cf\'c7\'e0\'c0\'cc\'b5\'c9\'bc\'f6\'b5\'b5\'c0\'d6\'c1\'f6 \'b5\'d1\'b4\'d9\'b0\'a1\'b4\'c9 \'b0\'e6\'bf\'ec\'bf\'a1\'b5\'fb\'b6\'f3\'bc\'ad \'b1\'d9\'b5\'a5\'c0\'cc\'b0\'c5\'be\'c8\'c1\'df\'bf\'e4\'c7\'cf\'c1\'f6 \'be\'e7\'c2\'ca\'bf\'ac\'bb\'ea\'b8\'b8\'b8\'c2\'c0\'bd\'b5\'c7\'b4\'cf\'b1\'ee...)\par
+\par
+\par
+\par
+[\'b9\'ae\'c1\'a679] \'ba\'ce\'bc\'ad \'b9\'f8\'c8\'a3\'bf\'cd \'b1\'de\'bf\'a9\'b0\'a1 \'c4\'bf\'b9\'cc\'bc\'c7\'c0\'bb \'b9\'de\'b4\'c2 \'bb\'e7\'bf\'f8\'c0\'c7 \'ba\'ce\'bc\'ad \'b9\'f8\'c8\'a3 \'b9\'d7 \'b1\'de\'bf\'a9\'bf\'cd \'c0\'cf\'c4\'a1\'c7\'cf\'b4\'c2 \'b8\'f0\'b5\'e7  \'bb\'e7\'bf\'f8\'c0\'c7 last_name, department_id, salary \'b8\'a6 \'c7\'a5\'bd\'c3\'c7\'cf\'b4\'c2 query \'b8\'a6 \'c0\'db\'bc\'ba\'c7\'cf\'bc\'bc\'bf\'e4 .\par
+select last_name, department_id, salary\par
+from employees\par
+where (department_id, salary) in (select department_id, salary\par
+                                  from employees\par
+                                  where commission_pct is not null\par
+                                );\par
+\par
+[\'b9\'ae\'c1\'a680] \'b1\'de\'bf\'a9\'bf\'cd \'c4\'bf\'b9\'cc\'bc\'c7\'c0\'cc location_id\'b0\'a1 1700 \'bf\'a1 \'c0\'d6\'b4\'c2 \'bb\'e7\'bf\'f8\'c0\'c7 \'b1\'de\'bf\'a9 \'b9\'d7 \'c4\'bf\'b9\'cc\'bc\'c7\'b0\'fa \'c0\'cf\'c4\'a1\'c7\'cf\'b4\'c2 \'bb\'e7\'bf\'f8\'c0\'c7 last_name, department_name, salary\'b8\'a6 \'c3\'e2\'b7\'c2\'c7\'d8\'c1\'d6\'bc\'bc\'bf\'e4.\par
+select e.last_name, d.department_id ,  e.salary\par
+from employees e, departments d\par
+where e.department_id = d.department_id\par
+and (e.salary, nvl(e.commission_pct,0)) in (select  e.salary, nvl(e.commission_pct,0)\par
+                                   from employees e, departments d \par
+                                    where d.location_id = 1700\par
+                                    and e.department_id = d.department_id\par
+                                   );\par
+ null\'c0\'ba \'ba\'f1\'b1\'b3\'b8\'a6 \'c7\'cf\'b0\'d4\'b5\'c7\'b8\'e9 \'ba\'f1\'b1\'b3\'b0\'a1 \'be\'c8\'b5\'c8\'b4\'d9. ->\'b4\'d9\'b8\'a5\'b0\'aa\'c0\'b8\'b7\'ce \'b4\'eb\'c3\'bc\'c7\'d8\'c1\'d8\'b4\'d9.\par
+\par
+[\'b9\'ae\'c1\'a681] Johnson \'bf\'cd \'b5\'bf\'c0\'cf\'c7\'d1 \'b1\'de\'bf\'a9 \'b9\'d7 \'c4\'bf\'b9\'cc\'bc\'c7\'c0\'bb \'b9\'de\'b4\'c2 \'b8\'f0\'b5\'e7 \'bb\'e7\'bf\'f8\'c0\'c7 last_name, hire_date, salary, commission_pct\'b8\'a6 \'c7\'a5\'bd\'c3\'c7\'cf\'b4\'c2 query \'b8\'a6 \'c0\'db\'bc\'ba\'c7\'d5\'b4\'cf\'b4\'d9.\par
+\'b4\'dc \'b0\'e1\'b0\'fa\'bf\'a1 Johnson \'b8\'a6 \'c7\'a5\'bd\'c3\'c7\'cf\'c1\'f6 \'b8\'b6\'bd\'ca\'bd\'c3\'bf\'c0.\par
+select last_name, hire_date, salary, commission_pct\par
+from employees\par
+where (salary, nvl(commission_pct,0)) in (select salary, nvl(commission_pct,0)\par
+          from employees\par
+          where last_name = 'Johnson')\par
+and last_name != 'Johnson'          ;\par
+\par
+\par
+\par
+\par
+\par
+\par
+[\'b9\'ae\'c1\'a682] \'ba\'ce\'bc\'ad\'c0\'c7 \'c3\'d1 \'b1\'de\'bf\'a9\'b0\'a1 \'c0\'fc\'c3\'bc \'ba\'ce\'bc\'ad\'c0\'c7 \'c6\'f2\'b1\'d5 \'b1\'de\'bf\'a9\'ba\'b8\'b4\'d9 \'b8\'b9\'c0\'ba \'ba\'ce\'bc\'ad\'c0\'c7 \'c0\'cc\'b8\'a7\'b0\'fa \'c3\'d1 \'b1\'de\'bf\'a9\'b8\'a6 \'c7\'a5\'bd\'c3\'c7\'cf\'b5\'b5\'b7\'cf query\'b8\'a6 \'c0\'db\'bc\'ba\'c7\'cf\'bc\'bc\'bf\'e4.\par
+select d.department_name, e.sumsal\par
+from  (select department_id, sum(salary) sumsal\par
+                                  from employees\par
+                                  group by department_id \par
+                                  having sum(salary)>(select avg(sumsal)\par
+                                                      from (select sum(salary) sumsal\par
+                                                      from employees\par
+                                                      group by department_id))) e ,departments d\par
+where e.department_id = d.department_id;\par
+\par
+\'c0\'ce\'b6\'f3\'c0\'ce \'ba\'e4\'c0\'c7 \'c1\'a6\'be\'e0: e\'b6\'f3\'b4\'c2 \'c1\'fd\'c7\'d5\'c0\'bb \'b8\'b8\'b5\'e9\'be\'fa\'c2\'ee\'b8\'b8 \'b1\'d7 \'b0\'aa\'c0\'bb \'b4\'d9\'bd\'c3 \'c8\'a3\'c3\'e2\'c7\'d8\'bc\'ad \'be\'b5 \'bc\'f6 \'be\'f8\'b4\'d9.\par
+\'be\'ee\'b6\'b2\'b0\'e1\'b0\'fa\'bc\'c2\'c0\'bb \'b8\'b8\'b5\'e9\'be\'ee\'b3\'f5\'b0\'ed \'ba\'ce\'bc\'ad\'ba\'b0\'b7\'ce\'c3\'d1\'be\'d7\'b0\'aa\'c0\'bb\'b1\'b8\'c7\'d1 \'c1\'fd\'c7\'d5\'c0\'bb\'b0\'a1\'c1\'ae\'b4\'d9\'b0\'a1 \'c6\'f2\'b1\'d5\'c0\'bb \'b1\'b8\'c7\'cf\'b8\'e9 \'ba\'fc\'b8\'a3\'c1\'f6\'b8\'b8 \'b1\'d7\'b7\'b1\'c0\'db\'be\'f7\'c0\'cc \'be\'c8\'b5\'c8\'b4\'d9.\par
+\'b0\'a1\'bb\'f3\'c5\'d7\'c0\'cc\'ba\'ed\'b0\'aa\'c0\'bb \'b4\'d9\'bd\'c3\'c8\'a3\'c3\'e2\'c7\'d8\'bc\'ad \'be\'b5 \'bc\'f6 \'be\'f8\'b4\'d9.\par
+\par
+\'c0\'cc \'bc\'ba\'b4\'c9 \'b6\'a7\'b9\'ae\'bf\'a1 \'b3\'aa\'bf\'c2 \'bc\'ad\'ba\'ea\'c4\'f5\'b8\'ae\'b0\'a1\par
+\b\fs32\'c0\'a7\'b5\'e5with(\'c4\'f5\'b8\'ae\'ba\'ed\'b6\'f4\'b8\'b8\'b5\'e9\'b1\'e2)\par
+\b0\fs20\'ba\'b9\'c7\'d5query\'b9\'ae \'be\'c8\'bf\'a1\'bc\'ad \'b5\'bf\'c0\'cf\'c7\'d1 select\'b9\'ae\'c0\'bb \'b5\'ce\'b9\'f8\'c0\'cc\'bb\'f3 \'b9\'dd\'ba\'b9\'c7\'d2 \'b0\'e6\'bf\'ec\'bf\'a1 query block\'c0\'bb \'b8\'b8\'b5\'e9\'be\'ee\'bc\'ad \'bb\'e7\'bf\'eb\'c7\'cf\'b8\'e9 \'bc\'ba\'b4\'c9\'c0\'cc \'c7\'e2\'bb\'f3\'b5\'c8\'b4\'d9.\par
+\'c0\'ce\'b6\'f3\'c0\'ce\'ba\'e4\'c0\'c7 \'c1\'a6\'be\'e0(\'b4\'d9\'bd\'c3\'c8\'a3\'c3\'e2 \'c7\'d2 \'bc\'f6\'b0\'a1\'be\'f8\'b4\'d9. \'b8\'c5\'b9\'f8 \'b9\'dd\'ba\'b9)\'c0\'bb \'c7\'d8\'b0\'e1\'c7\'d1 \'b0\'cd\'c0\'cc with! \'b9\'dd\'ba\'b9\'c7\'cf\'b4\'c2 \'c4\'f5\'b8\'ae\'b9\'ae\'c0\'bb(\'c6\'af\'c8\'f7 \'c1\'f7\'b0\'e8\'b0\'aa\'b1\'b8\'c7\'cf\'b4\'c2)\'c7\'d8\'b0\'e1 \'c7\'d2 \'bc\'f6\'c0\'d6\'b4\'d9.\par
+\par
+with \par
+dept_cost as (select d.department_name, sum(e.salary) as sumsal\par
+              from employees e, departments d\par
+              where e.department_id = d.department_id\par
+              group by d.department_name), \par
+avg_cost as (select sum(sumsal)/count(*) as deptavg\par
+              from dept_cost)\par
+\par
+\par
+dept_cost \'b6\'f3\'b4\'c2 \'b0\'a1\'bb\'f3\'c5\'d7\'c0\'cc\'ba\'ed\'c0\'bb \'b8\'b8\'b5\'e7\'b4\'d9.\par
+\b\'c7\'fc\'bd\'c4 as (\'bc\'ad\'ba\'ea\'c4\'f5\'b8\'ae)\par
+\b0\par
+(select d.department_name, sum(e.salary) as sumsal\par
+              from employees e, departments d\par
+              where e.department_id = d.department_id\par
+              group by d.department_name)\par
+->\'ba\'ce\'bc\'ad\'ba\'b0 \'c3\'d1\'be\'d7\'b1\'de\'bf\'a9\'b8\'a6 \'b8\'b8\'b5\'e7 \'ba\'ce\'ba\'d0\par
+\par
+avg_cost as (select sum(sumsal)/count(*) as deptavg\par
+              from dept_cost)\par
+\'c6\'f2\'b1\'d5\'b0\'aa\'c0\'bb \'b8\'b8\'b5\'e7 \'b0\'a1\'bb\'f3\'c5\'d7\'c0\'cc\'ba\'ed\par
+with\'b8\'a6 \'be\'b2\'b8\'e9 \'bf\'a9\'b1\'e2\'bc\'ad sum(sumsal)\'c0\'cc\'b7\'b1\'bd\'c4\'c0\'b8\'b7\'ce \'ba\'d2\'b7\'af\'bf\'c3 \'bc\'f6\'b0\'a1\'c0\'d6\'b4\'d9.\par
+\par
+with \par
+dept_cost as (select d.department_name, sum(e.salary) as sumsal\par
+              from employees e, departments d\par
+              where e.department_id = d.department_id (+)\par
+              group by d.department_name), \par
+avg_cost as (select sum(sumsal)/count(*) as deptavg\par
+              from dept_cost)\par
+select * \par
+from dept_cost\par
+where sumsal > (select deptavg\par
+                from avg_cost);\par
+\par
+\'b0\'a1\'bb\'f3\'c5\'d7\'c0\'cc\'ba\'ed \'bf\'a9\'b7\'af\'b0\'b3\'b8\'b8\'b5\'e9 \'b6\'a7\'bf\'a1\'b4\'c2 \'c4\'c4\'b8\'b6,\'b7\'ce \'bf\'ac\'b0\'e1\'c7\'d8\'c1\'d6\'b0\'ed\par
+\'b4\'f5\'c0\'cc\'bb\'f3 \'b0\'a1\'bb\'f3\'c5\'d7\'c0\'cc\'ba\'ed \'b8\'b8\'b5\'e9\'c7\'ca\'bf\'e4\'be\'f8\'c0\'bb \'b6\'a7\'b4\'c2 \'c4\'c4\'b8\'b6\'be\'f8\'c0\'cc \'b3\'a1\'b3\'bd\'b4\'d9.(\'b9\'ae\'b9\'fd)\par
+\'b1\'d7\'b4\'d9\'c0\'bd \'c4\'de\'b8\'b6\'be\'f8\'c0\'cc select\'b7\'ce \'bd\'c3\'c0\'db\par
+\par
+\par
+\par
+\b\fs32\'c1\'fd\'c7\'d5\'bf\'ac\'bb\'ea\'c0\'da\par
+\fs20\'c7\'d5\'c1\'fd\'c7\'d5 \par
+\'b1\'b3\'c1\'fd\'c7\'d5 join/ exists\par
+\'c2\'f7\'c1\'fd\'c7\'d5 not exists\par
+\'c1\'fd\'c7\'d5\'bf\'ac\'bb\'ea\'c0\'da\'b4\'c2 \'bb\'e7\'bf\'eb\'c7\'cf\'c1\'f6\'be\'ca\'c0\'b8\'b8\'e9 \'be\'ca\'c0\'bb \'bc\'f6\'b7\'cf \'c1\'c1\'b4\'d9. \'b1\'d7\'b7\'a1\'bc\'ad \'b0\'f8\'ba\'ce\'c7\'cf\'b4\'c2 \'b0\'cd\'c0\'cc\'b4\'d9. \'bf\'d6\'be\'b2\'c1\'f6 \'b8\'bb\'b6\'f3\'b4\'c2 \'b0\'cd\'c0\'ce\'c1\'f6\b0\par
+\par
+\b <\'c7\'d5\'c1\'fd\'c7\'d5>\b0\par
+union\par
+\'c1\'df\'ba\'b9\'c0\'bb \'c1\'a6\'b0\'c5\'c7\'d8\'bc\'ad \'c3\'e2\'b7\'c2\par
+union all \par
+\'c1\'df\'ba\'b9\'b1\'ee\'c1\'f6 \'b4\'d9 \'c3\'e2\'b7\'c2\par
+\par
+select employee_id, job_id\par
+from employees\par
+union\par
+select employee_id, job_id\par
+from job_history ;\par
+\par
+select employee_id, job_id\par
+from employees\par
+union all\par
+select employee_id, job_id\par
+from job_history ;\par
+\'c1\'df\'ba\'b9\'b0\'aa->sort\'b7\'ce \'c3\'bc\'c5\'a9\par
+RDBMS(\'c1\'a4\'c7\'fc\'b5\'a5\'c0\'cc\'c5\'cd)\'ba\'d0\'bc\'ae \'c7\'d2 \'b6\'a7\'bf\'a1\'b4\'c2 \'b5\'c9 \'bc\'f6 \'c0\'d6\'b4\'c2\'b4\'eb\'b7\'ce SORTING\'c7\'e0\'c0\'a7\'b4\'c2 \'bc\'ba\'b4\'c9\'bf\'a1 \'b3\'aa\'bb\'da\'b4\'d9. UNION\'c0\'ba \'be\'ee\'c2\'bf \'bc\'f6\'be\'f8\'c0\'cc SORT Operation\'c0\'cc \'b5\'b9\'be\'c6\'b0\'a3\'b4\'d9. \'b5\'a5\'c0\'cc\'c5\'cd \'be\'e7\'c0\'cc \'b8\'b9\'be\'c6\'c1\'f6\'b8\'e9 \'ba\'f1\'c8\'bf\'c0\'b2\'c0\'fb\'c0\'cc\'b0\'ed \'b4\'c0\'b8\'ae\'b4\'d9.\par
+\par
+\b union all + not exist\'b8\'a6 \'c0\'cc\'bf\'eb\'c7\'cf\'bf\'a9 union\'c0\'bb \'b8\'b8\'b5\'e7\'b4\'d9.(\'c6\'a9\'b4\'d7)\par
+\b0 select employee_id, job_id\par
+from employees\par
+\b union all\b0\par
+select employee_id, job_id\par
+from job_history j\par
+where not exists (select 'x'\par
+                      from employees\par
+                      where employee_id = j.employee_id\par
+                      and job_id = j.job_id);\par
+\par
+\'c1\'d6\'c0\'c7\'c1\'a1 \'c3\'b9\'b9\'f8\'c2\'b0 \'c5\'d7\'c0\'cc\'ba\'ed\'b0\'fa \'b5\'ce\'b9\'f8\'c2\'b0 \'c5\'d7\'c0\'cc\'ba\'ed\'c0\'c7 \'b4\'eb\'c0\'c0 \'c4\'c3\'b7\'b3\'c0\'c7 \'c5\'b8\'c0\'d4\'b0\'fa \'b0\'b9\'bc\'f6\'b0\'fa \'c0\'cf\'c4\'a1\'b5\'c7\'be\'ee\'be\'df\'c7\'d1\'b4\'d9.\par
+(\'c7\'f6\'c0\'e5\'bf\'a1\'bc\'b1 \'c0\'fd\'b4\'eb \'c0\'af\'b4\'cf\'bf\'c2\'c0\'bb \'be\'b2\'c1\'f6\'be\'ca\'b4\'c2\'b4\'d9.)\par
+\par
+select employee_id, job_id, salary\par
+from employees\par
+union all\par
+select employee_id, job_id\b\par
+\b0 from job_history;\par
+\'c0\'cc\'b7\'b1\'b0\'e6\'bf\'ec\'bf\'a1\'b4\'c2 \'c0\'a7\'be\'c6\'b7\'a1 \'b4\'eb\'c0\'c0 \'c4\'c3\'b7\'b3\'b0\'b9\'bc\'f6\'bf\'cd \'c5\'b8\'c0\'d4\'c0\'cc \'be\'c8\'b8\'c2\'b4\'c2\'b4\'d9.(salary\'ba\'ce\'ba\'d0-> \'bf\'c0\'b7\'f9)\par
+select employee_id, job_id, salary\par
+from employees\par
+\b union all\b0\par
+select employee_id, job_id, \b null\par
+\b0 from job_history;\par
+\b\'c4\'c3\'b7\'b3\'b0\'b9\'bc\'f6\'b8\'a6 \'b8\'c2\'c3\'df\'b1\'e2\'c0\'a7\'c7\'d8 null\'c0\'cc\'b3\'aa 0\'b0\'aa\'c0\'bb \'b3\'d6\'be\'ee\'c1\'d8\'b4\'d9.\b0\par
+\par
+\b <\'b1\'b3\'c1\'fd\'c7\'d5>\par
+\b0 select employee_id, job_id\par
+from employees\par
+\b intersect\b0\par
+select employee_id, job_id\par
+from job_history;\par
+\'b4\'d9\'b8\'a5\'ba\'ce\'bc\'ad\'b7\'ce \'b0\'ac\'b4\'d9\'b0\'a1 \'b4\'d9\'bd\'c3\'bf\'f8\'b7\'a1\'ba\'ce\'bc\'ad\'b7\'ce \'b5\'b9\'be\'c6\'b0\'a3\'bb\'e7\'b6\'f7\par
+\'b0\'f8\'c5\'eb\'b5\'a5\'c0\'cc\'c5\'b8\'b8\'b8 \'bb\'cc\'be\'c6\'b3\'bf-sort\'bc\'f6\'c7\'e0\'c7\'d8\'bc\'ad \'c3\'a3\'c0\'bd \'ba\'f1\'c8\'bf\'c0\'b2->exists\'c0\'cc\'bf\'eb\par
+select employee_id, job_id\par
+from employees e\par
+where exists (select 'x'\par
+              from job_history\par
+              where employee_id = e.employee_id\par
+              and job_id = e.job_id);\par
+\par
+c.f)1\'c2\'ca\'c1\'fd\'c7\'d5\'c0\'bb M\'c2\'ca\'c1\'fd\'c7\'d5\'bf\'a1 \'ba\'f1\'b1\'b3\'c7\'cf\'b4\'c2 \'b0\'cd\'c0\'cc \'c1\'c1\'b4\'d9.\par
+\par
+\b <\'c2\'f7\'c1\'fd\'c7\'d5>\b0\par
+select employee_id, job_id\par
+from employees\par
+\b minus\b0\par
+select employee_id, job_id\par
+from job_history ;\par
+\par
+select employee_id, job_id\par
+from employees e\par
+where not exists (select 'x'\par
+                  from job_history\par
+                  where employee_id = e.employee_id\par
+                  and job_id = e.job_id);\par
+\par
+\par
+\par
+\b\'c1\'a4\'b8\'ae\b0  \par
+\'c4\'c3\'b7\'b3\'c0\'c7 \'b0\'b9\'bc\'f6, \'c5\'b8\'c0\'d4\'c0\'cf\'c4\'a1( \'ba\'f3\'c4\'ad\'c0\'bb null\'b7\'ce \'c3\'a4\'bf\'f6\'c1\'d6\'b1\'e2\'c0\'a7\'c7\'d1 \'c7\'fc\'bd\'c4\'bb\'f3\'c0\'c7 null)\par
+union, intersect, minus\'b4\'c2 sort\'b0\'a1\'b9\'df\'bb\'fd\'c7\'d1\'b4\'d9.(\'be\'b2\'c1\'f6\'b8\'bb\'c0\'da exists\'b8\'a6 \'bb\'e7\'bf\'eb\'c7\'d8\'b6\'f3.)\par
+ordery by 1,2 \'b7\'ce \'c1\'a4\'b7\'c4 \'c7\'d2 \'b6\'a7\'b4\'c2 \'c3\'b9\'b9\'f8\'c2\'b0 \'c1\'fd\'c7\'d5\'c0\'c7 \'b1\'e2\'c1\'d8\'c0\'cc\'b4\'d9. \par
+ \par
+}
+ 
